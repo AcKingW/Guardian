@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/api.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+      	<script src="js/jquery.js"></script>
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/aui.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/common.css"/>
+    	<script src="js/bootstrap-table-expandable.js"></script>
+    	<link rel="stylesheet" href="css/bootstrap-table-expandable.css">
+          <script src="js/bootstrap.js"></script>
+          	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+        <style type="text/css">
+        .cen{
+          text-align:center;
+        }
+        .bd{
+           overflow-x: hidden;
+           overflow-y: auto;
+         }
+        .column1{
+        }
+        .body{
+          background-color:white;
+        }
+        .mx{
+          width:100%;
+          background-size:100% 100%;
+          overflow-x:auto;
+          overflow-y:auto;
+          background-color:white;
+        }
+        .thead{
+          font-size:16px;
+        }
+        .common{
+          font-size:14px;
+        }
+        </style>
+    </head>
+    <body>
+      <div id="wrapper">
+    <div class="box">
+
+      <div id="HBox">
+        <form action="" method="post" onsubmit="return false;">
+          <ul class="list" id="tan">
+          </ul>
+        </form>
+      </div><!-- HBox end -->
+    </div><!-- box end -->
+  </div><!-- wrapper end -->
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery.hDialog.min.js"></script>
+  <script>
+  $(function(){
+    var $el = $('.dialog');
+    $el.hDialog(); //默认调用
+    //改变高度
+    $('.demo2').hDialog({height: 400});
+    //改变遮罩背景色
+    $('.demo8').hDialog({modalBg: 'rgba(255,255,255,0.7)'});
+    //错误文字提示
+    $('.demo10').click(function(){
+      $.tooltip('My God, 出错啦！！！');
+    });
+    //正确文字提示
+    $('.demo11').click(function(){
+      $.tooltip('OK, 操作成功！', 2500, true);
+    });
+    //显示加载
+    $('.demo12').click(function(){
+      //自定义文字： $.showLoading('玩命加载中...');
+      //自定义宽高： $.showLoading('努力加载中...',140,40);
+      $.showLoading();
+    });
+    //返回顶部
+    $.goTop();
+  });
+  </script>
+              <div class="bd">
+    <h1 align="center">
+        <table class="table table-hover"id="otb">
+          <caption></caption>
+          <thead>
+          <tr class="thead">
+            <td>序号</td>
+            <td>姓名</td>
+            <td>时间</td>
+            <td>是否准假</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody id="tb"class="common">
+    	<form action="ceshi.php"method="POST"id="form2">
+    	<input type="HIDDEN"value="true"name="cmm"/>
+    	</form>
+        </tbody>
+        </table>
+        <div >
+      </div>
+
+      <div style="height:70px;"></div>
+    </div>
+    <div class="demo">
+      <input type="hidden"value="fdfeefeffew"id="kuang"class="demo2"/>
+    </div><!-- demo end -->
+    </body>
+  <script>
+    var id=1;
+    var xuehao=localStorage.getItem("xuehao");
+    $.ajax({
+    type:'post',
+    url:'http://49.233.79.42/pyCar/php/chuli.php',
+    data:'act="select"&&xuehao='+xuehao,
+    async:false,
+    complete:function(){
+    },
+    success:function(data){
+        var x=document.getElementById("tb");
+      if(data.length>1)
+      {
+      x.innerHTML=data;
+      $("#tb td").attr("class","common");
+      }
+     else {
+     x.innerHTML='<tr><td colspan="4"><h3>你至今还没有请过假哦</h3></td></tr>';
+      }
+    },
+    error:function(){
+      alert("网络错误");
+    }
+    });
+      function removeq(id){
+        var k='#'+id+'  td';
+        var panduan=$(k).eq(3).text();
+        alert(panduan);
+        if(panduan=="审批中")
+        {
+        var out=document.getElementById("tb");
+        var namedid=document.getElementById(id);
+        out.removeChild(namedid);
+    	$.ajax({
+    	  type : 'post',
+    	  url:'http://49.233.79.42/pyCar/php/shanchu.php',
+    	  data:"id="+id,
+    	  async:false,
+    	  complete:function()
+    	  {
+
+    		  alert("ajax请求发送完毕！");
+    	  },
+    	   success:function(data){
+    		  alert("数据返回完毕！");
+    		  alert(data);
+    	  },
+    	  error:function(){
+    		  alert("数据库异常");
+    	  }
+    	});
+    }
+    else
+    {
+      alert("不可以删除已经审批完毕的信息！");
+    }
+      }
+      function disp(id)
+      {
+        $.ajax({
+          type : 'post',
+          url:'http://49.233.79.42/pyCar/php/chuli.php',
+          data:'act="请假弹框"&&id='+id,
+          async:false,
+          complete:function()
+          {
+          },
+           success:function(data){
+            $("#tan").html(data);
+          },
+          error:function(){
+            alert("数据库异常");
+          }
+        });
+        var yuansu=document.getElementById(id);
+        if(typeof(yuansu)=="undefined"||yuansu==null)
+        {
+        }
+        else
+        {
+              $("#kuang").trigger("click");
+        }
+      }
+    </script>
+</html>

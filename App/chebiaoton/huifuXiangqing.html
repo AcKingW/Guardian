@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/api.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/aui.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <style type="text/css">
+        .cen {
+            postion: relative;
+        }
+
+        #cbtn {
+            width: itdh: 100px;
+            higth: 200px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body style="background-color:white">
+    <div id="app">
+        <header class="aui-bar aui-bar-nav aui-bar-light">
+            <div class="aui-pull-left aui-btn" onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">评论</div>
+        </header>
+        <div v-for="(item,key) in list" :key="item.id" >
+            <ul class="aui-list aui-media-list" v-if="item.id">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner" >
+                        <div @click="chakan(item.id)" class="aui-list-item-media" style="width: 2.5rem;height:4rem;padding-top:1rem">
+                            <img :src="item.myImgUrl" style="width:100%;height:70%"class="aui-img-round aui-list-img-sm">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">{{item.userName}}</div>
+                                <div class="aui-pull-right">
+                                <div :id="item.id" onclick="zan(this)"><i class="iconfont icon-dianzan1" >{{item.zan}}</i> </div>
+                                  <div  @click="huifu2(item.id)"><i class="aui-iconfont aui-icon-comment aui-pull-right">{{item.pinglun}}</i> </div>
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text" @click="chakan(item.id)">
+                                {{item.content}}<span style="color:gray">{{item.fabiaotime}}</span>
+                            </div>
+                        </div>
+                    </div>
+                  </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="js/api.js"></script>
+<script type="text/javascript" src="js/aui-toast.js"></script>
+    <script type="text/javascript" src="js/aui-dialog.js"></script>
+
+<script>
+    var self;
+    var IP = '49.233.79.42/pyCar/php';
+    var app = new Vue({
+        el: '#app',
+        data: {
+            huifuId: localStorage.getItem("huifuId"),
+            userName: localStorage.getItem('name'),
+            list: [],
+            type1: '推荐',
+            type2: '沙雕',
+            type3: '恋爱',
+            type4: '秘密',
+            type5: '烦恼',
+            status: '小路',
+            content: '',
+            huifuId: '',
+            jibie: '',
+            empty: '',
+        },
+        mounted: function() {
+            self = this;
+            status_update();
+        },
+        methods: {
+          huifu2: function(id) {
+            this.huifuId = id;
+            this.jibie = 2;
+            openDialog('input');
+          },
+          chakan: function(id) {
+            localStorage.setItem("huifuId",id);
+            api.openWin({
+                name: 'huifuXiangqing',
+                url: 'huifuXiangqing.html',
+            });
+          }
+        },
+    })
+
+    function status_update() {
+        self.list = [];
+        $.ajax({
+            // 请求方式
+            type: "post",
+            // contentType
+
+            // dataType
+            dataType: "json",
+            // url
+            url: 'http://' + IP + '/xiaoluPinglunIndexImg.php',
+            // 把JS的对象或数组序列化一个json 字符串
+            // result 为请求的返回结果对象
+            data: JSON.stringify({
+                huifuId: localStorage.getItem("huifuId"),
+            }),
+            success: function(res) {
+                console.log(res);
+                for (var k = 0; k < res.length; k++) {
+                    var item = {
+                        id: res[k].id,
+                        userName: res[k].userName,
+                        content: res[k].content,
+                        zan: res[k].zan,
+                        pinglun: res[k].pinglun,
+                    //    imgUrl: 'http://' + IP + res[k].imgUrl.substr(1),
+                        myImgUrl: res[k].myImgUrl,
+                        fabiaotime: res[k].fabiaotime,
+                        jibie: res[k].jibie,
+                    };
+                    self.list.push(item);
+                }
+            },
+            error: function(res) {
+                console.log(res);
+                alert('网络发生错误!');
+            }
+        });
+    }
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var year = date.getFullYear(); //获取当前年份
+        var mon = date.getMonth() + 1; //获取当前月份
+        var da = date.getDate(); //获取当前日
+        var day = date.getDay(); //获取当前星期几
+        var h = date.getHours(); //获取小时
+        var m = date.getMinutes(); //获取分钟
+        var s = date.getSeconds(); //获取秒
+        var currentdate = '月' + da + '日'  + ' ' + h + ':' + m ;
+        return currentdate;
+    }
+
+    apiready = function() {
+        // 界面文字
+        var header = $api.byId('header');
+    };
+
+
+    function cq() {
+        api.historyBack({
+            frameName: 'detail'
+        }, function(ret, err) {
+
+            if (!ret.status) {
+                api.closeWin();
+            }
+        });
+    }
+    var dialog = new auiDialog({})
+
+    function openDialog(type) {
+        switch (type) {
+            case "text":
+                dialog.alert({
+                    title: "弹出提示",
+                    msg: '这里是内容',
+                    buttons: ['取消', '确定']
+                }, function(ret) {
+                    console.log(ret)
+                })
+                break;
+            case "callback":
+                dialog.alert({
+                    title: "提示",
+                    msg: '您是否要选择匿名回复?',
+                    buttons: ['不匿名', '匿名']
+                }, function(ret) {
+                    if (ret) {
+                        if (ret.buttonIndex == 2) {
+                            self.userName = '匿名';
+                        } else if (ret.buttonIndex == 1) {
+                            self.userName = localStorage.getItem('name');
+                        }
+                        $.ajax({
+                            // 请求方式
+                            type: "post",
+                            // contentType
+
+                            // dataType
+                            dataType: "json",
+                            // url
+                            url: 'http://49.233.79.42/pyCar/php/huifu1Xiaolu.php',
+                            // 把JS的对象或数组序列化一个json 字符串
+                            data: JSON.stringify({
+                                huifuId: self.huifuId,
+                                jibie: self.jibie,
+                                type: localStorage.getItem("currentType"),
+                                userName: self.userName,
+                                content: self.content,
+                                myImgUrl: localStorage.getItem("myImgUrl"),
+                                fabiaotime: getNowFormatDate(),
+                            }),
+                            // result 为请求的返回结果对象
+                            success: function(result) {
+                              status_update();
+                                showDefault('success');
+                            },
+                            error: function(res) {
+                                console.log(res);
+                                alert('网络发生错误!');
+                            }
+                        });
+                    }
+                })
+                break;
+            case "input":
+                dialog.prompt({
+                    title: "回复",
+                    text: '你要回复他的内容',
+                    buttons: ['取消', '确定']
+                }, function(ret) {
+                    if (ret.buttonIndex == 2) {
+                        self.content = ret.text;
+                        openDialog('callback');
+                    }
+                })
+                break;
+            default:
+                break;
+
+        }
+    }
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    var toast = new auiToast({})
+
+    function showDefault(type) {
+        switch (type) {
+            case "success":
+                toast.success({
+                    title: "回复成功",
+                    duration: 1000
+                });
+                break;
+            case "fail":
+                toast.fail({
+                    title: "提交失败",
+                    duration: 2000
+                });
+                break;
+            case "custom":
+                toast.custom({
+                    title: "提交成功",
+                    html: '<i class="aui-iconfont aui-icon-laud"></i>',
+                    duration: 2000
+                });
+                break;
+            case "loading":
+                toast.loading({
+                    title: "加载中",
+                    duration: 2000
+                }, function(ret) {
+                    console.log(ret);
+                    setTimeout(function() {
+                        toast.hide();
+                    }, 3000)
+                });
+                break;
+            default:
+                // statements_def
+                break;
+        }
+    }
+    function zan(obj){
+      var id = obj.id;
+
+      self.huifuId = id;
+
+      var a = "zan"+id;
+      var currentAct = '赞';
+    //    alert(localStorage.getItem(a));
+      if(localStorage.getItem(a) != '2'){  }
+      else{currentAct ='不赞'  }
+      $.ajax({
+          // 请求方式
+          type: "post",
+          // contentType
+
+          // dataType
+          dataType: "json",
+          // url
+          url: 'http://' + IP + '/zan.php',
+          // 把JS的对象或数组序列化一个json 字符串
+          // result 为请求的返回结果对象
+          data: JSON.stringify({
+              huifuId: self.huifuId,
+              act: currentAct,
+          }),
+          success: function(res) {
+              console.log(res);
+              if(currentAct == '赞'){
+              localStorage.setItem(a,"2");//赞的情况
+              $("#"+id+" i").attr("class","iconfont icon-dianzan");
+              $("#"+id+" i").html(parseInt($("#"+id+" i").html())+1);
+            //  status_update();
+            }
+              else {
+                localStorage.setItem(a,'1');//不赞
+               $("#"+id+" i").attr("class","iconfont icon-dianzan1");
+               $("#"+id+" i").html(parseInt($("#"+id+" i").html())-1);
+              //  status_update();
+              }
+
+          },
+          error: function(res) {
+              console.log(res);
+              alert('网络发生错误!');
+          }
+      });
+    }
+
+</script>
+
+
+</html>

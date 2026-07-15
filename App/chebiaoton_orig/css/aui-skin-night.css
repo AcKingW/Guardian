@@ -1,0 +1,277 @@
+/*
+ * ===================================================================================================
+ * APIClud - AUI UI 框架    流浪男  QQ：343757327  http://www.auicss.com
+ * Verson 2.0.0 自定义主题样式
+ * explain：自定义主题样式可以完成AUI内所有背景、控件颜色、字号等的修改，可以方便快速的搭建属于自己项目的一套主题色
+ * ===================================================================================================
+ */
+ /*body背景色及色值*/
+ body {
+ 	color: #d1d1d1;
+	background-color: #1a1a1a;
+}
+ p {
+	color: #757575;
+}
+a {
+	color: #0062cc;
+}
+.aui-text-default {
+	color: #212121 !important;
+}
+.aui-bg-default {
+	background-color: #f5f5f5 !important;
+}
+ /*label*/
+.aui-label {
+	padding: 0.3em 0.35em;
+	font-size: 0.6rem;
+	color: #616161;
+    background-color: #e0e0e0;
+}
+.aui-label-outlined {
+	border: 1px solid #d9d9d9;
+	background-color: transparent;
+}
+.aui-label .aui-iconfont {
+	font-size: 0.6rem;
+}
+/*角标*/
+.aui-badge {
+  color: #ffffff;
+      background-color: #ff2600;
+}
+/*按钮*/
+.aui-btn {
+	color: #212121;
+	background: #e0e0e0;
+}
+.aui-btn:active {
+	color: #212121;
+	background-color: #bdbdbd;
+}
+.aui-btn-outlined {
+	background: transparent;
+	border: 1px solid #bdbdbd;
+}
+.aui-btn-outlined:active {
+	background: transparent;
+}
+/*tab*/
+.aui-tab .aui-tab-item {
+	height: 2.2rem;
+    line-height: 2.2rem;
+    font-size: 0.7rem;
+	color: #212121;
+    background-color: #ffffff;
+}
+/*tab选中时样式*/
+.aui-tab .aui-tab-item.active {
+    color: #039be5;
+    border-bottom: 2px solid #039be5;
+}
+/*单选选中样式*/
+.aui-radio:checked,
+.aui-radio.aui-checked {
+	background-color: #edfb3f;
+    border: solid 1px #edfb3f;
+}
+/* 单选选中时中间对号颜色*/
+.aui-radio:checked:before,
+.aui-radio.aui-checked:before,
+.aui-radio:checked:after,
+.aui-radio.aui-checked:after {
+	border-color: #212121;
+}
+/*多选选中样式*/
+.aui-checkbox:checked,
+.aui-checkbox.aui-checked {
+	background-color: #edfb3f;
+    border: solid 1px #edfb3f;
+}
+/* 多选选中时中间对号颜色*/
+.aui-checkbox:checked:before,
+.aui-checkbox.aui-checked:before,
+.aui-checkbox:checked:after,
+.aui-checkbox.aui-checked:after{
+	border-color: #212121;
+}
+/*滑动开关*/
+.aui-switch:checked {
+    border-color: #edfb3f;
+    background-color: #edfb3f;
+}
+.aui-switch:before {
+	background-color: #212121;
+}
+/*顶部导航栏*/
+.aui-bar-nav {
+	background-color: #00bbd4;
+	color: #212121;
+}
+.aui-bar-nav .aui-iconfont {
+	color: #212121;
+}
+.aui-bar-nav .aui-btn .aui-iconfont {
+	color: #212121;
+}
+/*浅色顶部导航拦*/
+.aui-bar-light {
+	color: #03a9f4;
+	background-color: #ffffff;
+}
+.aui-bar.aui-bar-light .aui-iconfont {
+	color: #03a9f4;
+}
+.aui-bar.aui-bar-light .aui-btn-outlined {
+	border-color: #03a9f4;
+}
+/*底部工具栏*/
+.aui-bar-tab {
+	background-color: #ffffff;
+	color: #757575;
+}
+/*底部工具栏选中时颜色*/
+.aui-bar-tab .active {
+	color: #039be5;
+}
+/*按钮工具栏*/
+.aui-bar-btn .aui-bar-btn-item {
+	border-color: #edfb3f;
+	color: #edfb3f;
+}
+.aui-bar-btn .aui-bar-btn-item.active {
+    background-color: #edfb3f;
+    color: #ffffff;
+}
+/*顶部导航存在按钮组工具栏时样式*/
+.aui-bar-nav .aui-bar-btn-item {
+    border-color: #ffffff;
+}
+/*浅色顶部导航存在按钮组工具栏时样式*/
+.aui-bar-nav.aui-bar-light .aui-bar-btn-item {
+    border-color: #03a9f4;
+}
+/*顶部导航存在按钮组工具栏时选中样式*/
+.aui-bar-nav .aui-bar-btn .aui-bar-btn-item.active {
+    background-color: #ffffff;
+    color: #03a9f4;
+}
+/*浅色顶部导航存在按钮组工具栏时选中样式*/
+.aui-bar-nav.aui-bar-light .aui-bar-btn .aui-bar-btn-item.active {
+    background-color: #03a9f4;
+    color: #ffffff;
+}
+/*进度条*/
+.aui-progress {
+	background-color: #f0f0f0;
+}
+/*进度条色带*/
+.aui-progress .aui-progress-bar {
+	background-color: #eefb3f;
+}
+/*滑块*/
+.aui-range input[type='range']{
+	/*滑块线条背景色*/
+    background-color: #f0f0f0;
+}
+.aui-range input[type='range']::-webkit-slider-thumb {
+	/*滑块圆圈样式*/
+	border-color: #edfb3f;
+    background-color: #edfb3f;
+}
+/*提示条*/
+.aui-tips {
+	background-color: rgba(0,0,0,.6);
+}
+/*搜索条*/
+.aui-searchbar {
+	background-color: #ebeced;
+    color: #9e9e9e;
+}
+/*列表背景色*/
+.aui-list .aui-list-item {
+	color: #d1d1d1;
+    background-color: #1a1a1a;
+}
+/*列表头部*/
+.aui-list .aui-list-header {
+	background-color: #242424;
+    color: #9e9e9e;
+}
+/*列表项内Ttitle标题*/
+.aui-list .aui-list-item-title {
+	font-size: 0.8rem;
+	color: #d1d1d1;
+}
+/*列表文本区域字体*/
+.aui-list .aui-list-item-text {
+	font-size: 0.7rem;
+	color: #d1d1d1;
+}
+/*列表右侧箭头*/
+.aui-list-item-arrow:before {
+	border-color: #edfb3f;
+}
+/*列表右侧其他信息字体颜色*/
+.aui-list .aui-list-item-right,
+.aui-list-item-title-row em {
+	color: #edfb3f;
+}
+/*列表线条颜色*/
+.aui-list:before,
+.aui-list:after,
+.aui-list .aui-list-item:after,
+.aui-list.aui-list-in .aui-list-item-inner:after {
+	background-color: #242424;
+}
+/*列表项点击颜色*/
+.aui-list .aui-list-item:active {
+    background-color: #f5f5f5;
+}
+/*媒体列表布局左（右）媒体宽度控制*/
+.aui-list .aui-list-item-media {
+    width: 4.5rem;
+}
+/*列表内label、icon字体颜色*/
+.aui-list .aui-list-item-label,
+.aui-list .aui-list-item-label-icon {
+	color: #d1d1d1;
+}
+/*卡片列表顶部字体*/
+.aui-card-list-header {
+	font-size: 0.8rem;
+	color: #212121;
+}
+/* 卡片列表内容区域*/
+.aui-card-list-content,
+.aui-card-list-content-padded {
+	font-size: 0.7rem;
+	color: #212121;
+}
+/*卡片列表底部*/
+.aui-card-list-footer {
+	font-size: 0.7rem;
+	color: #757575;
+}
+/*信息条*/
+.aui-info {
+	font-size: 0.7rem;
+    color: #757575;
+    background-color: transparent;
+}
+/*输入框类字体颜色*/
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="number"],
+select,
+textarea {
+	color: #424242;
+}

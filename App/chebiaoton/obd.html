@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/aui.css">
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.hDialog.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+
+    <body class="um-vp " ontouchstart>
+      <div id="app">
+      <header class="aui-bar aui-bar-nav"id='hher'>
+            <div class="aui-pull-left aui-btn"onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">OBD故障码查询</div>
+        </header>
+      <div class="aui-searchbar" id="search">
+            <div class="aui-searchbar-input aui-border-radius">
+                <i class="aui-iconfont aui-icon-search"></i>
+                <input type="search"id="guzhangma" placeholder="请输入搜索内容"/>
+                <input type="button" style="width:2rem;background-color:#84C1FF;border-radius:0.4rem" onclick="getInfo()"value="搜索"/>
+                <div class="aui-searchbar-clear-btn">
+                    <i class="aui-iconfont aui-icon-close"></i>
+                </div>
+            </div>
+            <div class="aui-searchbar-btn" tapmode>取消</div>
+        </div>
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        故障码:
+                    </div>
+                    <div class="aui-list-item-input"id="guzhangma">
+                        {{guzhangma}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        适用于:
+                    </div>
+                    <div class="aui-list-item-input"id="shiyongyu">
+                          {{shiyongyu}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        中文含义:
+                    </div>
+                    <div class="aui-list-item-input"id="zhongwenhanyi">
+  {{zhongwenhanyi}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        英文含义:
+                    </div>
+                    <div class="aui-list-item-input"id="yingwenhanyi">
+{{yingwenhanyi}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                      故障位置:
+                    </div>
+                    <div class="aui-list-item-input"id="suoshuxitong">
+{{suoshuxitong}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        故障原因:
+                    </div>
+                    <div class="aui-list-item-input"id="guzhangyuanyin">
+{{guzhangyuanyin}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+</div>
+    </body>
+    <script src="js/api.js"></script>
+
+    <script>
+    var self, currentType;
+    var IP = '49.233.79.42/pyCar/php';
+    var itemNum = 4;
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [],
+            guzhangma:'',
+            shiyongyu:'',
+            zhongwenhanyi:'',
+            yingwenhanyi:'',
+            suoshuxitong:'',
+            guzhangyuanyin:'',
+            status: '发现',
+        },
+        mounted: function() {
+            self = this;
+        },
+        methods: {
+        }
+    });
+    function getInfo()
+    {
+      self.guzhangma=$("#guzhangma").val();
+      $.ajax({
+          // 请求方式
+          type: "post",
+          // contentType
+
+          // dataType
+          dataType: "json",
+          // url
+          url: 'http://49.233.79.42:7777/obd',
+          // 把JS的对象或数组序列化一个json 字符串
+          data: JSON.stringify({
+              guzhangma: self.guzhangma,
+          }),
+          // result 为请求的返回结果对象
+          success: function(result) {
+            console.log(result);
+            alert('正在查询中，请稍候......');
+            //获取第一位到 倒数第二位(包括)
+
+            self.guzhangma=result['guzhangma'];
+            self.shiyongyu=result['shiyongyu'];
+            self.zhongwenhanyi=result['zhongwenhanyi'];
+            self.yingwenhanyi=result['yingwenhanyi'];
+            self.suoshuxitong=result['suoshuxitong'];
+            self.guzhangyuanyin=result['guzhangyuanyin'];
+            //document.getElementById("myResult").innerHTML=result['res'][0];
+            //alert('上传成功!');
+          },
+          error: function(res) {
+              alert(res);
+              console.log(res);
+              alert('网络发生错误!');
+          }
+      });
+    }
+
+     function closeWin(){
+         api.closeWin();
+     }
+     function cq()
+     {
+       api.historyBack({
+   frameName: 'detail'
+   }, function(ret, err) {
+   if (!ret.status) {
+     api.closeWin();
+   }
+   });
+     }
+    </script>
+</html>

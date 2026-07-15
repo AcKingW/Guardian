@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/aui.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap-table-expandable.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/aui.css" />
+      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style type="text/css">
+        body {
+          background-color: #ECEBEB;
+        }
+
+        #sw {
+            height: 200px;
+            width: 300px;
+        }
+
+        #chuansong {
+            display: block;
+            margin-top: 20px;
+        }
+
+        #t1 {
+            margin-left: 30px;
+        }
+
+        #text {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    </style>
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+<div id="app">
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.hDialog.min.js"></script>
+    <header class="aui-bar aui-bar-nav aui-bar-light">
+        <div class="aui-pull-left aui-btn" onclick="cq()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title" style="left:2rem; right: 2rem;">
+            悬赏通缉令
+        </div>
+    </header>
+    <div style="width:100%;height:13rem;color:white; ">
+        <img :src="imgUrl"style="width:100%;height:13rem;" />
+        <h7 style="display:inline-block;position:absolute;top:11rem;left:1rem;border-radius:1rem;background:-webkit-linear-gradient(45deg,#003366 30%,#0099cc); ">
+          {{title}}
+        </h7>
+        <div style="position:absolute;top:13rem;font-size:0.6rem;left:1rem; border-radius:1rem; background:-webkit-linear-gradient(45deg,#003366 30%,#0099cc);">
+            悬赏人:{{userName}}
+        </div>
+    </div>
+    <section class="aui-content-padded" >
+    <div class="aui-card-list" style="margin-top:3rem;">
+        <div class="aui-card-list-header">
+          <i class="aui-iconfont aui-icon-menu"></i>
+          <div >
+            悬赏令
+          </div>
+          <div class="aui-pull-right aui-text-warning" >
+          揭榜人数:{{joinN}}
+          </div>
+        </div>
+        <div class="aui-card-list-content-padded">
+            {{content}}
+        </div>
+        <div class="aui-card-list-footer">
+            <i class="aui-iconfont aui-icon-date aui-pull-right"></i>
+          悬赏开始时间:{{fabiaotime}}
+        </div>
+        <div class="aui-card-list-footer">
+          <div v-if="phoneNumberShow == 0" >
+            <i class="aui-iconfont aui-icon-star" ></i>
+            <span style="padding-left:0.4rem">悬赏金额:{{money}}劳动实践活动分</span>
+          </div>
+          <div v-else>
+            <i class="aui-iconfont aui-icon-phone"></i>
+          <span style="padding-left:0.4rem">  负责人联系方式:{{phoneNumber}}</span>
+          </div>
+          <div class="aui-pull-right aui-btn aui-btn-warning aui-btn-paper"  @click="jiebang()">
+            揭榜
+          </div>
+        </div>
+    </div>
+</section>
+
+    </div>
+</div>
+</body>
+<script src="js/aui-toast.js"></script>
+<script>
+var currentimgId = localStorage.getItem("currentimgId");
+//Toast
+apiready = function(){
+    api.parseTapmode();
+}
+var toast = new auiToast({
+   })
+   function showDefault(type){
+       switch (type) {
+           case "success":
+               toast.success({
+                   title:"提交成功",
+                   duration:2000
+               });
+               break;
+           case "fail":
+               toast.fail({
+                   title:"您已经揭过该榜",
+                   duration:2000
+               });
+               break;
+           case "custom":
+               toast.custom({
+                   title:"揭榜成功",
+                   html:'<i class="aui-iconfont aui-icon-laud"></i>',
+                   duration:2000
+               });
+               break;
+           case "loading":
+               toast.loading({
+                   title:"加载中",
+                   duration:2000
+               },function(ret){
+                   console.log(ret);
+                   setTimeout(function(){
+                       toast.hide();
+                   }, 3000)
+               });
+               break;
+           default:
+               // statements_def
+               break;
+       }
+   }
+
+var self;
+  var app = new Vue({
+    el: '#app',
+    data: {
+      userName: '',
+      title: '',
+      content: '',
+      fabiaotime: '',
+      money: '',
+      joinN: '',
+      imgUrl: '',
+      phoneNumberShow: 0,
+
+    },
+    mounted: function(){
+      self = this;
+      $.ajax({
+                  // 请求方式
+                  type: "post",
+                  // contentType
+                  // dataType
+                  dataType: "json",
+                  // url
+                  url: 'http://49.233.79.42/pyCar/php/getXuanshangInfo.php',
+                  // 把JS的对象或数组序列化一个json 字符串
+                  data: JSON.stringify({
+                      imgId: currentimgId,
+                  }),
+                  // result 为请求的返回结果对象
+                  success: function(res) {
+
+                    self.userName = res.userName;
+                    self.title = res.title;
+                    self.imgUrl = 'http://49.233.79.42/pyCar/php/'+res.imgUrl;
+                    self.content = res.content;
+                    self.fabiaotime = res.fabiaotime;
+                    self.money = res.money;
+                    self.joinN = res.joinN;
+                    self.phoneNumber = res.phoneNumber;
+                  },
+                  error: function(res) {
+                      console.log(res);
+                      alert('网络发生错误!');
+                  }
+              });
+    },
+    methods:{
+      jiebang:function(){
+        var isJiebang = localStorage.getItem(currentimgId);
+        if(isJiebang == null){
+        $.ajax({
+                    // 请求方式
+                    type: "post",
+                    // contentType
+                    // dataType
+                    dataType: "json",
+                    // url
+                    url: 'http://49.233.79.42/pyCar/php/jiebang.php',
+                    // 把JS的对象或数组序列化一个json 字符串
+                    data: JSON.stringify({
+                        imgId: currentimgId,
+                    }),
+                    // result 为请求的返回结果对象
+                    success: function(res) {
+                      self.phoneNumberShow = 1;
+                      localStorage.setItem(currentimgId,1);
+                      showDefault('custom');
+                    },
+                    error: function(res) {
+                        console.log(res);
+                        alert('网络发生错误!');
+                    }
+                });
+              }
+              else{
+                showDefault('fail');
+              }
+      }
+    },
+  });
+  function cq() {
+      api.historyBack({
+          frameName: 'detail'
+      }, function(ret, err) {
+
+          if (!ret.status) {
+              api.closeWin();
+          }
+      });
+  }
+</script>
+
+</html>

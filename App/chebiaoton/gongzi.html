@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/aui.css">
+        <style type="text/css">
+        .title{
+          font-size:1rem;
+        }
+        .stitle{
+          color: grey;
+          font-size: 0.8rem;
+        }
+        .stitle .blue{
+          display: inline-block;
+          color: blue;
+        }
+        .body{
+          margin: 1.5rem;
+        }
+        #header{
+          margin-bottom:  1.5rem;
+        }
+        #header h2{
+          font-weight: normal;
+        }
+        #content{
+          font-size: 0.8rem;
+          color: black;
+          font-weight: lighter;
+        }
+        </style>
+
+    </head>
+
+    <body class="um-vp " ontouchstart>
+      <header class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn"onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title"></div>
+        </header>
+        <div class="body">
+          <div id="header">
+            <h2 >学校给学生发工资了</h2>
+            <div class="stitle">
+              <span>帮帮宣传部</span> <span class="blue">帮帮小驿站</span>
+            </div>
+          </div>
+          <div id="content">
+            <img style="margin-bottom:1rem;" src="images/4.jpg"/>
+            <span>学校给学生发工资？别想了。不过工资没有活动分可不少。
+对于咱们学生来说，钱乃身为之物，对不对？这活动分可是机遇难求，可遇不可求。
+不过，现在就有大量的机遇等着大家！
+兴奋？莫急，先稳住。传说中某校园app中，有着神秘板块，里面居然有学校发布的各种任务与调查，完成居然还会给活动分！
+对于活动分不感兴趣？兄dei，你是不知道它的作用吧，综合测评了解一下，评奖评优了解一下。后悔了？想知道那个传说app是什么？那就是——我们！
+没错，就是我们。别不信，点开同校板块看一看，里面你会吓一跳。我相信你们会为里面的福利所心动。别跟我说什么，我不要你觉得，我要我觉得，我相信你们看了，绝对会“真香”。
+不多说了，我去接任务了。</span>
+          </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+    function cq()
+    {
+      api.historyBack({
+  frameName: 'detail'
+  }, function(ret, err) {
+  if (!ret.status) {
+    api.closeWin();
+  }
+  });
+    }
+
+    </script>
+</html>

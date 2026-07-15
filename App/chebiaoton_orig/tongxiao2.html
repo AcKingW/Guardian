@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+          <link rel="stylesheet" href="css/aui.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="shouye2/css/main.css">
+        <style type="text/css">
+        *{margin:0;padding:0;}
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+      <header>
+      <span id='aui-header'>
+      </span>
+    </header>
+        <footer class="aui-bar aui-bar-tab" id="footer">
+          <div id="tabbar1" class="aui-bar-tab-item aui-active" tapmode onclick="randomSwitchBtn(this,'首页',0)">
+              <i style="font-size:1rem" class="iconfont icon-shouye"></i>
+              <div class="aui-bar-tab-label">首页</div>
+          </div>
+          <div id="tabbar2" class="aui-bar-tab-item" tapmode onclick="randomSwitchBtn(this,'',1)">
+              <i class="iconfont icon-xinbaniconshangchuan-"></i>
+              <div class="aui-bar-tab-label">时空对话</div>
+          </div>
+          <div id="tabbar3" class="aui-bar-tab-item" tapmode onclick="randomSwitchBtn(this,'',2)">
+              <i class="iconfont icon-baoshibaoxiu"></i>
+              <div class="aui-bar-tab-label">公共报修</div>
+          </div>
+          <div id="tabbar4" class="aui-bar-tab-item" tapmode onclick="randomSwitchBtn(this,'',3)">
+
+              <i class="iconfont icon-jiqiren"></i>
+              <div class="aui-bar-tab-label">路飞在线</div>
+          </div>
+           <div id="tabbar5" class="aui-bar-tab-item" tapmode onclick="randomSwitchBtn(this,'',4)">
+
+              <i class="iconfont icon-gerenzhongxin"></i>
+              <div class="aui-bar-tab-label">我的</div>
+          </div>
+      </footer>
+    </body>
+    <script src="js/api.js"></script>
+<script src="js/aui-tab.js"></script>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+    <script>
+    apiready = function(){
+         api.parseTapmode();
+         var header = $api.byId('aui-header');
+         var footer =　$api.byId('footer')
+         $api.fixStatusBar(header);
+         var headerPos = $api.offset(header);
+         var body_h = api.winHeight;
+         var footer_h = $api.offset(footer).h;
+
+         api.openFrameGroup ({
+             name: 'footer_tab_demo',
+             scrollEnabled:true,
+             rect:{
+             x:0,
+             y:headerPos.h,
+             w:'auto',
+             h:body_h - headerPos.h - footer_h
+             },
+             index:0,
+             preload:3,
+             frames:
+             [{
+               name: 'tongxiao',
+               url: 'tongxiao.html',
+               bounces:false,
+                      reload:true
+             },{
+                 name: 'liaotian1',
+                 url: 'liaotian1.html',
+                 bounces:false,
+                      reload:true
+             },{
+                 name: 'baoxiu',
+                 url: 'baoxiu.html',
+                 bounces:false,
+                        reload:true
+             },{
+                 name: 'lufei',
+                 url: 'https://bot.4paradigm.com/web/chat/3962/b556ae61-caa7-43e1-bd93-7f0f9e4dbd67',
+                 bounces:false,
+                        reload:true
+             },{
+                 name: 'geren2_content.html',
+                 url: 'geren2_content.html',
+                 bounces:false,
+                        reload:true
+             }]
+         }, function(ret, err){
+             var footer = $api.byId('footer');
+             var footerAct = $api.dom(footer, '.aui-bar-tab-item.aui-active');
+     $api.removeCls(footerAct, 'aui-active');
+
+             var name = ret.name;
+             var index = ret.index;
+             if(index==0){
+                 $api.text($api.byId('aui-header'),'');
+                 $api.addCls($api.byId('tabbar1'), 'aui-active');
+             }else if(index==1){
+                 $api.text($api.byId('aui-header'),'');
+                 $api.addCls($api.byId('tabbar2'), 'aui-active');
+
+             }else if(index==2){
+                 $api.text($api.byId('aui-header'),'');
+                 $api.addCls($api.byId('tabbar3'), 'aui-active');
+             }else if(index==3){
+                 $api.text($api.byId('aui-header'),'');
+                 $api.addCls($api.byId('tabbar4'), 'aui-active');
+
+             }else if(index==4){
+                 $api.text($api.byId('aui-header'),'');
+                 $api.addCls($api.byId('tabbar5'), 'aui-active');
+             }
+         })
+     }
+     function closeWin(){
+         api.closeWin();
+     }
+     function randomSwitchBtn(obj, name, index) {
+         $api.text($api.byId('aui-header'),name);
+     var footer = $api.byId('footer');
+     var footerAct = $api.dom(footer, '.aui-bar-tab-item.aui-active');
+         $api.removeCls(footerAct, 'aui-active');
+         $api.addCls(obj, 'aui-active');
+         api.setFrameGroupIndex({
+             name: 'footer_tab_demo',
+             index: index,
+             scroll:true,
+             reload:true,
+         });
+
+     }
+function ok(){
+  api.openWin({
+      name: 'geren2_content',
+      url: './geren2_content.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+}
+function go(){
+  api.openWin({
+      name: 'jieguoout',
+      url: './jieguoout.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+}
+    </script>
+</html>

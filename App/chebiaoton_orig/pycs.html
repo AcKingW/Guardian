@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <link rel="stylesheet" type="text/css" href="css/api.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="css/aui.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <title>echarts</title>
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px
+        }
+
+        div {
+            float: left;
+        }
+
+        #container {
+            width: 50%;
+            height: 100%;
+        }
+
+        #info {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+  <div id="app">
+  <input accept="image/*" name="upimage" id="upload_file" type="file">
+
+  <textarea id="base64_output"  name="Word" v-model="imgUrl" style=" width:820px"></textarea>
+  <input type="button" @click="onSubmit()"value="上传"/>
+  <div>
+    <h1 id="myResult"></h1>
+  </div>
+</div>
+  <script src="js/api.js"></script>
+  <script type="text/javascript">
+  var self,str;
+
+  var app = new Vue({
+      el: '#app',
+      data: {
+          userName: localStorage.getItem('name'),
+          content: '',
+          imgUrl: '',
+          type: '电脑',
+          money: '',
+          title: '',
+      },
+      mounted: function() {
+          self = this;
+      },
+      methods: {
+          onSubmit: function() {
+          //  alert('fdf');
+             this.gen_base64();
+              //              alert(this.content + this.name + this.imgUrl + this.type);
+
+          },
+          gen_base64: function(){
+            var file = document.getElementById('upload_file').files[0];
+            var r = new FileReader();  //本地预览
+
+            r.readAsDataURL(file);    //Base64
+            r.onload = function(){
+                document.getElementById('base64_output').value = r.result;
+                str=r.result;
+                console.info(str);
+                app.imgUrl=str;
+                if (this.imgUrl =='') {
+                    alert('未上传车标图片!');
+                } else {
+                    $.ajax({
+                        // 请求方式
+                        type: "post",
+                        // contentType
+
+                        // dataType
+                        dataType: "json",
+                        // url
+                        url: 'http://49.233.79.42:7777/predict',
+                        // 把JS的对象或数组序列化一个json 字符串
+                        data: JSON.stringify({
+                            imgUrl: app.imgUrl,
+                        }),
+                        // result 为请求的返回结果对象
+                        success: function(result) {
+                          console.log(result);
+                          alert(result['res'][0])
+                          document.getElementById("myResult").innerHTML=result['res'][0];
+                          alert('上传成功!');
+                        },
+                        error: function(res) {
+                            alert(res);
+                            console.log(res);
+                            alert('网络发生错误!');
+                        }
+                    });
+                }
+          }
+
+      },
+  }}
+)
+
+      document.getElementById("upload_file").onchange = function () {
+
+
+      };
+
+
+  </script>
+
+
+
+</body>
+
+</html>

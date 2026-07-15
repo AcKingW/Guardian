@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/aui.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="js/aui-dialog.js"></script>
+          <link rel="stylesheet" href="node_modules/vant/lib/index.css"/>
+    <style type="text/css">
+        .white {
+            background: white;
+        }
+
+        .line {
+            box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 255, .2);
+        }
+
+        .mtop {
+            margin-top: 0.3rem;
+        }
+
+        .slideCenter {
+            padding-top: 2rem;
+            width: 300px;
+            text-align: center;
+            margin: auto auto
+        }
+
+        .box {
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .box div {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-right: 1rem;
+            -moz-border-radius: 15px;
+            /* Firefox */
+            -webkit-border-radius: 15px;
+            /* Safari 和 Chrome */
+            background: red;
+            background: #fff;
+            margin-left: -1px;
+            position: relative;
+        }
+        html,
+        body {
+            height: 100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html,
+        body,
+        div,
+        ul,
+        li,
+        img,
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
+            --webkit-box-sizing: border-box;
+        }
+
+        .loadmore {
+            text-align: center;
+            height: 0px;
+            line-height: 30px;
+            background-color: white;
+            display: none;
+            transition: height 1s;
+            -moz-transition: height 1s;
+            /* Firefox 4 */
+            -webkit-transition: height 1s;
+            /* Safari 和 Chrome */
+            -o-transition: height 1s;
+            /* Opera */
+        }
+
+        .loadmore.show {
+            display: block;
+            height: 30px;
+        }
+
+        .box div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            border: 1px solid #fff;
+        }
+
+        .xiaoluBox {
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .xiaoluBox div {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-right: 0.3rem;
+            -moz-border-radius: 15px;
+            /* Firefox */
+            -webkit-border-radius: 15px;
+            /* Safari 和 Chrome */
+            background: red;
+            background: #fff;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .xiaoluBox div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            border: 1px solid #fff;
+        }
+
+        .tabActive {
+            border-radius: 10%;
+            background-color: black !important;
+            color: white !important;
+        }
+
+        .content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+
+            padding-left: 0.8rem;
+            padding-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+        #hea{
+          position: fixed !important;
+          top:0rem !important;
+          z-index: 2 !important;
+          background-color: white !important;
+          height: 4.8rem !important;
+          width:100% !important;
+        }
+        #qbody{
+          margin-top: 5.8rem !important;
+        }
+    </style>
+
+</head>
+
+<body class="um-vp bc-bg white" style="background-color:#ECEBEB"ontouchstart>
+    <div id="app">
+
+        <div id="hea">
+            <div class="aui-row aui-row-padded">
+                <div class="aui-tabG" style="background-color:#56A6FF;">
+                    <div class="aui-col-xs-2" style="margin-left:1rem;" onclick="firqiehuan1()">
+                        <div id="firheader1" style="" class="aui-tab-itemG tapmode">发现</div>
+                    </div>
+                    <div class="aui-col-xs-2" onclick="firqiehuan2()">
+                        <div id="firheader2" style="" class="aui-tab-itemG tapmode">同校</div>
+                    </div>
+                    <div class="aui-col-xs-2" onclick="firqiehuan3()">
+                        <div id="firheader3" style="" class="aui-tab-itemG tapmode  aui-active">小路</div>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="aui-row aui-row-padded" style="margin-bottom:0.5rem;height:2.2rem;background-color:white !important">
+            <div class="xiaoluBox" id="xiaoluTab">
+                <div style="margin-left:1rem" id="header1" class="tabActive" onclick="qiehuan1()">{{type1}}</div>
+                <div style="" class="" id="header2" onclick="qiehuan2()">{{type2}}</div>
+                <div style="" class="" id="header3" onclick="qiehuan3()">{{type3}}</div>
+                <div style="" class="" id="header4" onclick="qiehuan4()">{{type4}}</div>
+                <div style="" class="" id="header5" onclick="qiehuan5()">{{type5}}</div>
+            </div>
+        </div>
+        </div>
+        <div id="qbody">
+        <van-list v-model="loading"
+                  :finished="finished"
+                  finished-text="没有更多了"
+                  @load="onLoad"
+                  id="macy-container"
+                   style="margin-top:1rem">
+                  <van-cell v-for="item in list"
+                            :key="item.id" style="margin:0rem !important;padding:0rem !important;background-color:#ECEBEB !important">
+                            <main  class="main" role="main">
+                              <ul style="background-color:#ECEBEB;">
+                                <li style="margin:0 0.5rem 0.5rem 0.5rem;">
+                                <div  >
+                                    <div class="aui-card-list" style="border-radius:0.6rem">
+                                        <div class="aui-card-list-header aui-card-list-user aui-border-b">
+                                            <div class="aui-card-list-user-avatar" style="height:2rem;width:2rem">
+                                                <img :src="item.myImgUrl" class="aui-img-round" width="100%" height="100%" />
+                                            </div>
+                                            <div class="aui-card-list-user-name">
+                                                <div style="margin-top:0.5rem">{{item.userName}}</div>
+
+                                            </div>
+                                            <div class="aui-card-list-user-name" style="color:gray">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="content">
+                                            {{item.content}}
+                                        </div>
+                                        <div class="aui-row"> </div>
+                                        <div class="aui-card-list-content-padded" style="width:50%">
+                                            <img :src="item.imgUrl" style="width:100%;height:5rem;" />
+                                        </div>
+                                        <div class="aui-card-list-footer aui-pull-left">
+                                          <img src="image/xingyuncao.png"width="25" height="25"/>
+                                          <div style="margin-left:0.1rem">{{item.fabiaotime}}</div>
+                                        </div>
+                                        <div class="aui-card-list-footer aui-border-t " style="margin-right:1rem;display:flex;justify-content:flex-end">
+                                            <div @click="chakan(item.id)"style="margin-right:0.5rem"><i style="font-size:1rem" class="aui-iconfont aui-icon-note">{{item.pinglun}}</i> </div>
+                                            <div :id="item.id" onclick="zan(this)" style="margin-right:0.5rem">
+                                              <i  style="font-size:1rem"class="iconfont icon-dianzan1"> {{item.zan}}</i></div>
+                                            <div @click="huifu1(item.id)">
+                                                 <i  style="font-size:0.9rem"class="aui-iconfont aui-icon-pencil">评论</i>
+                                               </div>
+                                        </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                            </van-cell>
+        </van-list>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="aui-row aui-row-padded">&nbsp</div>
+    <div class="aui-row aui-row-padded">&nbsp</div>
+
+
+    <div style="position:fixed;width:4rem;height:2rem;left:6.6rem;bottom:1rem;color:black;border-radius:20px;padding:10px;
+text-align:center;background-color:white;
+-moz-box-shadow:2px 2px 5px #333333;
+-webkit-box-shadow:2px 2px 5px #333333; box-shadow:2px 2px 5px #333333;" onclick="xiaolu()">
+        +发小路
+    </div>
+    </div>
+
+</body>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.hDialog.min.js"></script>
+<script type="text/javascript" src="js/aui-toast.js"></script>
+  <script src="script/vant.min.js" charset="utf-8"></script>
+<script>
+    var self, currentType;
+
+  var IP = '49.233.79.42/pyCar/php';
+    var itemNum = 0;
+    localStorage.setItem("currentType", "推荐");
+    apiready = function() {}
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [],
+            type1: '推荐',
+            type2: '段子',
+            type3: '恋爱',
+            type4: '秘密',
+            type5: '烦恼',
+            status: '小路',
+            userName: '',
+            huifuId: '',
+            content: '',
+            finished: false,
+            loading: false,
+        },
+        mounted: function() {
+            self = this;
+
+        },
+        methods: {
+          onLoad: function(){
+            mq();
+            this.loading = false;
+            if(this.list.length > 1000) this.finished = true;
+          },
+            huifu1: function(id) {
+                this.huifuId = id;
+                openDialog('input');
+            },
+            chakan: function(id){
+              localStorage.setItem("huifuId",id);
+
+              api.openWin({
+                  name: 'huifuXiangqing',
+                  url: 'huifuXiangqing.html',
+              });
+            },
+          },
+    });
+function mq(){
+  itemNum = itemNum +4;
+  $.ajax({
+      // 请求方式
+      type: "post",
+      // contentType
+      // dataType
+      dataType: "json",
+      // url
+      url: 'http://' + IP + '/xiaoluLoadMoreImg.php',
+      // 把JS的对象或数组序列化一个json 字符串
+      // result 为请求的返回结果对象
+      data: JSON.stringify({
+          type: localStorage.getItem("currentType"),
+          itemNum: itemNum,
+      }),
+      success: function(res) {
+
+          if (res[0]["jieguo"] == '空') {
+        //    self.finished = true;
+
+          } else {
+            console.log(res);
+            for (var k = 0; k < res.length; k++) {
+
+                var item = {
+                    id: res[k].id,
+                    userName: res[k].userName,
+                    content: res[k].content,
+                    zan: res[k].zan,
+                    pinglun: res[k].pinglun,
+                    imgUrl: 'http://' + IP + res[k].ImgUrl.substr(1),
+                    myImgUrl: res[k].myImgUrl,
+                    fabiaotime: res[k].fabiaotime,
+                    sex: res[k].sex,
+                };
+                if(item.userName =='匿名')
+                {
+                  if(item.sex == '男' ) item.myImgUrl = 'image/nan.png';
+                  else item.myImgUrl = 'image/nv.png';
+                }
+                self.list.push(item);
+
+            }
+          }
+        }
+      })
+}
+function zan(obj){
+  var id = obj.id;
+
+  self.huifuId = id;
+
+  var a = "zan"+id;
+  var currentAct = '赞';
+//    alert(localStorage.getItem(a));
+  if(localStorage.getItem(a) != '2'){  }
+  else{currentAct ='不赞'  }
+  $.ajax({
+      // 请求方式
+      type: "post",
+      // contentType
+
+      // dataType
+      dataType: "json",
+      // url
+      url: 'http://' + IP + '/zan.php',
+      // 把JS的对象或数组序列化一个json 字符串
+      // result 为请求的返回结果对象
+      data: JSON.stringify({
+          huifuId: self.huifuId,
+          act: currentAct,
+      }),
+      success: function(res) {
+          console.log(res);
+          if(currentAct == '赞'){
+          localStorage.setItem(a,"2");//赞的情况
+          $("#"+id+" i").attr("class","iconfont icon-dianzan");
+          $("#"+id+" i").html(parseInt($("#"+id+" i").html())+1);
+        //  status_update();
+        }
+          else {
+            localStorage.setItem(a,'1');//不赞
+           $("#"+id+" i").attr("class","iconfont icon-dianzan1");
+           $("#"+id+" i").html(parseInt($("#"+id+" i").html())-1);
+          //  status_update();
+          }
+
+      },
+      error: function(res) {
+          console.log(res);
+          alert('网络发生错误!');
+      }
+  });
+}
+
+    function xiaolu() {
+      window.location.href="faxiaolu.html";
+    }
+
+
+    //tab2导航栏
+    function qiehuan1() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type1);
+        $("#header1").attr("class", "tabActive");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        $("#header5").attr("class", "");
+        status_update();
+    }
+
+    function qiehuan2() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type2);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "tabActive");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        $("#header5").attr("class", "");
+        status_update();
+    }
+
+    function qiehuan3() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type3);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "tabActive");
+        $("#header4").attr("class", "");
+        $("#header5").attr("class", "");
+        status_update();
+    }
+
+    function qiehuan4() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type4);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "tabActive");
+        $("#header5").attr("class", "");
+        status_update();
+    }
+
+    function zhankai() {
+        $("#zhankai").css('-webkit-line-clamp', '160');
+    }
+    //更新状态
+    function status_update() {
+        self.list = [];
+        $.ajax({
+            // 请求方式
+            type: "post",
+            // contentType
+
+            // dataType
+            dataType: "json",
+            // url
+            url: 'http://' + IP + '/xiaoluIndexImg.php',
+            // 把JS的对象或数组序列化一个json 字符串
+            // result 为请求的返回结果对象
+            data: JSON.stringify({
+                type: localStorage.getItem("currentType"),
+            }),
+            success: function(res) {
+                console.log(res);
+                for (var k = 0; k < res.length; k++) {
+                    var item = {
+                        id: res[k].id,
+                        userName: res[k].userName,
+                        content: res[k].content,
+                        zan: res[k].zan,
+                        pinglun: res[k].pinglun,
+                        imgUrl: 'http://' + IP + res[k].imgUrl.substr(1),
+                        myImgUrl: res[k].myImgUrl,
+                        fabiaotime: res[k].fabiaotime,
+                        sex: res[k].sex,
+                    };
+                if(item.userName =='匿名')
+                {
+                  if(item.sex == '男' ) item.myImgUrl = 'image/nan.png';
+                  else item.myImgUrl = 'image/nv.png';
+                }
+
+                    self.list.push(item);
+
+                }
+            },
+            error: function(res) {
+                console.log(res);
+                alert('网络发生错误!');
+            }
+        });
+    }
+    //轮播图
+    function currentFun(index) {
+        console.log(index);
+    }
+
+
+    function closeWin() {
+        api.closeWin();
+    }
+
+
+
+
+    function qiehuan5() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type5);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        $("#header5").attr("class", "tabActive");
+        status_update();
+    }
+    //tab导航栏1
+    function firqiehuan1() {
+        $("#firheader1").attr("class", "aui-tab-itemX tapmode aui-active");
+        $("#firheader2").attr("class", "");
+        $("#firheader3").attr("class", "");
+        self.status = '同校';
+        api.openWin({
+            name: 'xiaoyuantong2',
+            url: 'xiaoyuantong2.html',
+        });
+        $("#firheader1").attr("class", "aui-tab-itemG");
+        $("#firheader2").attr("class", "aui-tab-itemG ");
+        $("#firheader3").attr("class", "aui-tab-itemG  tapmode aui-active");
+    }
+
+    function firqiehuan2() {
+        $("#firheader1").attr("class", "");
+        $("#firheader2").attr("class", "aui-tab-itemX tapmode aui-active");
+        $("#firheader3").attr("class", "");
+        self.status = '发现';
+        api.openWin({
+            name: 'tongxiao2',
+            url: 'tongxiao2.html',
+        });
+        $("#firheader1").attr("class", "aui-tab-itemG");
+        $("#firheader2").attr("class", "aui-tab-itemG ");
+        $("#firheader3").attr("class", "aui-tab-itemG  tapmode aui-active");
+    }
+
+    function firqiehuan3() {
+
+        $("#firheader1").attr("class", "");
+        $("#firheader2").attr("class", "");
+        $("#firheader3").attr("class", "aui-tab-itemX tapmode aui-active");
+        self.status = '小路';
+        location.reload();
+    }
+    var dialog = new auiDialog({})
+
+    function openDialog(type) {
+        switch (type) {
+            case "text":
+                dialog.alert({
+                    title: "弹出提示",
+                    msg: '这里是内容',
+                    buttons: ['取消', '确定']
+                }, function(ret) {
+                    console.log(ret)
+                })
+                break;
+            case "callback":
+                dialog.alert({
+                    title: "提示",
+                    msg: '您是否要选择匿名回复?',
+                    buttons: ['不匿名', '匿名']
+                }, function(ret) {
+                    if (ret) {
+                        if (ret.buttonIndex == 2) {
+                            self.userName = '匿名';
+                        } else if (ret.buttonIndex == 1) {
+                            self.userName = localStorage.getItem('name');
+                        }
+                        $.ajax({
+                            // 请求方式
+                            type: "post",
+                            // contentType
+
+                            // dataType
+                            dataType: "json",
+                            // url
+                            url: 'http://175.24.3.72/yujian/huifu1Xiaolu.php',
+                            // 把JS的对象或数组序列化一个json 字符串
+                            data: JSON.stringify({
+                                huifuId: self.huifuId,
+                                jibie: 1,
+                                type: localStorage.getItem("currentType"),
+                                userName: self.userName,
+                                content: self.content,
+                                myImgUrl: localStorage.getItem("myImgUrl"),
+                                fabiaotime: getNowFormatDate(),
+                                zhanghao: localStorage.getItem('xuehao'),
+                                sex: localStorage.getItem('sex'),
+                            }),
+                            // result 为请求的返回结果对象
+                            success: function(result) {
+                              status_update();
+                                showDefault('success');
+                            },
+                            error: function(res) {
+                                console.log(res);
+                                alert('网络发生错误!');
+                            }
+                        });
+                    }
+                })
+                break;
+            case "input":
+                dialog.prompt({
+                    title: "回复",
+                    text: '你要回复他的内容',
+                    buttons: ['取消', '确定']
+                }, function(ret) {
+                    if (ret.buttonIndex == 2) {
+                        self.content = ret.text;
+                        openDialog('callback');
+                    }
+                })
+                break;
+            default:
+                break;
+
+        }
+    }
+    apiready = function() {
+        api.parseTapmode();
+    }
+
+    var toast = new auiToast({})
+  function load1(){
+    itemNum = itemNum + 8;
+    $.ajax({
+        // 请求方式
+        type: "post",
+        // contentType
+        // dataType
+        dataType: "json",
+        // url
+        url: 'http://' + IP + '/xiaoluLoadMoreImg.php',
+        // 把JS的对象或数组序列化一个json 字符串
+        // result 为请求的返回结果对象
+        data: JSON.stringify({
+            type: localStorage.getItem("currentType"),
+            itemNum: itemNum,
+        }),
+        success: function(result) {
+
+            if (result[0]["jieguo"] == '空') {
+                alert('没有更多消息啦');
+
+            } else {
+              console.log(res);
+              for (var k = 0; k < res.length; k++) {
+                  var item = {
+                      id: res[k].id,
+                      userName: res[k].userName,
+                      content: res[k].content,
+                      zan: res[k].zan,
+                      pinglun: res[k].pinglun,
+                      imgUrl: 'http://' + IP + res[k].imgUrl.substr(1),
+                      myImgUrl: res[k].myImgUrl,
+                      fabiaotime: res[k].fabiaotime,
+                  };
+                  self.list.push(item);
+              }
+            }
+            //  dropload.resetload();
+        },
+        error: function(res) {
+            //dropload.resetload();
+            console.log(res);
+            alert('网络发生错误!');
+        }
+    });
+  }
+    function showDefault(type) {
+        switch (type) {
+            case "success":
+                toast.success({
+                    title: "回复成功",
+                    duration: 1000
+                });
+                break;
+            case "fail":
+                toast.fail({
+                    title: "提交失败",
+                    duration: 2000
+                });
+                break;
+            case "custom":
+                toast.custom({
+                    title: "提交成功",
+                    html: '<i class="aui-iconfont aui-icon-laud"></i>',
+                    duration: 2000
+                });
+                break;
+            case "loading":
+                toast.loading({
+                    title: "加载中",
+                    duration: 2000
+                }, function(ret) {
+                    console.log(ret);
+                    setTimeout(function() {
+                        toast.hide();
+                    }, 3000)
+                });
+                break;
+            default:
+                // statements_def
+                break;
+        }
+    }
+    //jquery下拉加载更多
+    $(function() {
+        var loadFlag = false;
+        var _stary, _endy;
+        $(".container").on("touchend", function() {
+            $(".container").stop().animate({
+                top: 0
+            }, 80);
+            if ($(this).height() + $(this).scrollTop() >= $(".container ul").height()  && !loadFlag) {
+                loadFlag = true;
+                $(".loadmore").addClass("show");
+                $(this).scrollTop(100000000000);
+                itemNum = itemNum + 8;
+                $.ajax({
+                    // 请求方式
+                    type: "post",
+                    // contentType
+                    // dataType
+                    dataType: "json",
+                    // url
+                    url: 'http://' + IP + '/xiaoluLoadMoreImg.php',
+                    // 把JS的对象或数组序列化一个json 字符串
+                    // result 为请求的返回结果对象
+                    data: JSON.stringify({
+                        type: localStorage.getItem("currentType"),
+                        itemNum: itemNum,
+                    }),
+                    success: function(res) {
+
+                        if (res[0]["jieguo"] == '空') {
+                          //  alert('没有更多消息啦');
+
+                        } else {
+                          console.log(res);
+                          for (var k = 0; k < res.length; k++) {
+                              var item = {
+                                  id: res[k].id,
+                                  userName: res[k].userName,
+                                  content: res[k].content,
+                                  zan: res[k].zan,
+                                  pinglun: res[k].pinglun,
+                                  imgUrl: 'http://' + IP + res[k].ImgUrl.substr(1),
+                                  myImgUrl: res[k].myImgUrl,
+                                  fabiaotime: res[k].fabiaotime,
+                                  sex: res[k].sex,
+                              };
+                              if(item.userName =='匿名')
+                              {
+                                if(item.sex == '男' ) item.myImgUrl = 'image/nan.png';
+                                else item.myImgUrl = 'image/nv.png';
+                              }
+
+                              self.list.push(item);
+
+                          }
+                        }
+                        //  dropload.resetload();
+                    },
+                    error: function(res) {
+                        //dropload.resetload();
+                        console.log(res);
+                        alert('网络发生错误!');
+                    }
+                });
+                setTimeout(function() {
+                    loadFlag = false;
+                }, 1000);
+            }
+        });
+        $(".container").on("touchstart", function(e) {
+            var _touch = e.originalEvent.targetTouches[0];
+            _stary = _touch.pageY;
+        });
+        $(".container").on("touchmove", function(e) {
+            var _touch = e.originalEvent.targetTouches[0];
+            _endy = _touch.pageY;
+            if ($(this).height() + $(this).scrollTop() >= $(".container ul").height()) {
+                var current_y = _endy - _stary;
+                $(".container").animate({
+                    top: current_y / 3
+                }, 5);
+            }
+        });
+    });
+    function getNowFormatDate() {
+        var date = new Date();
+        var year = date.getFullYear(); //获取当前年份
+        var mon = date.getMonth() + 1; //获取当前月份
+        var da = date.getDate(); //获取当前日
+        var day = date.getDay(); //获取当前星期几
+        var h = date.getHours(); //获取小时
+        var m = date.getMinutes(); //获取分钟
+        var s = date.getSeconds(); //获取秒
+        var currentdate = mon + '月' + da + '日' + h + ':' + m;
+        return currentdate;
+    }
+
+</script>
+
+</html>

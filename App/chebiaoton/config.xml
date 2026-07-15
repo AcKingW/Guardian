@@ -1,0 +1,33 @@
+ <widget id="A6019335376379"  version="0.0.1">
+    <name>行车安全卫士</name>
+    <description>
+        Example For APICloud.
+    </description>
+    <author email="developer@apicloud.com" href="http://www.apicloud.com">
+        Developer
+    </author>
+    <content src="loginnew.html" />
+    <access origin="*" />    <feature name="ajpush">
+      <param name="channel" value="developer-apicloud" />
+      <param name="app_key" value="6e52ef66aff9d71fbcd27971" />
+    </feature>
+    <preference name="pageBounce" value="false"/>    <preference name="customRefreshHeader" value="UIPullRefreshFlash"/>
+	<preference name="appBackground" value="#f2f3f5"/>
+	<preference name="windowBackground" value="#f2f3f5"/>	<preference name="frameBackgroundColor" value="#f2f3f5"/>
+	<preference name="hScrollBarEnabled" value="false"/>
+	<preference name="vScrollBarEnabled" value="false"/>
+	<preference name="autoLaunch" value="true"/>
+	<preference name="fullScreen" value="false"/>
+	<preference name="autoUpdate" value="true" />
+	<preference name="smartUpdate" value="false" />
+	<preference name="debug" value="true"/>
+	<preference name="statusBarAppearance" value="true"/>
+	<permission name="readPhoneState" />
+	<permission name="camera" />
+	<permission name="record" />
+	<permission name="location" />
+	<permission name="fileSystem" />
+	<permission name="internet" />
+	<permission name="bootCompleted" />
+	<permission name="hardware" />
+</widget>

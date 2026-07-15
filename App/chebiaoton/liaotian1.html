@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/aui.css">
+    <link rel="stylesheet" type="text/css" href="css/aui-slide.css" />
+    <script src="js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html,
+        body,
+        div,
+        ul,
+        li,
+        img,
+        p {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
+            --webkit-box-sizing: border-box;
+        }
+
+        .loadmore {
+            text-align: center;
+            height: 0px;
+            line-height: 30px;
+            background-color: white;
+            display: none;
+            transition: height 1s;
+            -moz-transition: height 1s;
+            /* Firefox 4 */
+            -webkit-transition: height 1s;
+            /* Safari 和 Chrome */
+            -o-transition: height 1s;
+            /* Opera */
+        }
+
+        .loadmore.show {
+            display: block;
+            height: 30px;
+        }
+
+        .white {
+            background: white;
+        }
+
+        .line {
+            box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 255, .2);
+        }
+
+        .mtop {
+            margin-top: 0.3rem;
+        }
+
+        .slideCenter {
+            padding-top: 2rem;
+            width: 300px;
+            text-align: center;
+            margin: auto auto
+        }
+
+        .box {
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .box div {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-right: 1rem;
+            -moz-border-radius: 15px;
+            /* Firefox */
+            -webkit-border-radius: 15px;
+            /* Safari 和 Chrome */
+            background: red;
+            background: #fff;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .box div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            border: 1px solid #fff;
+        }
+
+        .xiaoluBox {
+            display: -webkit-flex;
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .xiaoluBox div {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-right: 0.3rem;
+            -moz-border-radius: 15px;
+            /* Firefox */
+            -webkit-border-radius: 15px;
+            /* Safari 和 Chrome */
+            background: red;
+            background: #fff;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .xiaoluBox div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            border: 1px solid #fff;
+        }
+
+        .tabActive {
+            border-radius: 10%;
+            background-color: black !important;
+            color: white !important;
+        }
+    </style>
+
+</head>
+
+<body class="um-vp bc-bg white" ontouchstart>
+    <div id="app">
+<div id="hea">
+        <div id="header" class="aui-row aui-row-padded">
+            <div class="aui-tabG">
+                <div class="aui-col-xs-4" style="margin-left:1rem" >
+                    <div id="firheader1" class="aui-tab-itemG tapmode aui-active">车友互帮</div>
+                </div>
+            </div>
+        </div>
+
+        <div >
+            <div class="aui-row aui-row-padded">
+                <div class="box" id="tab" >
+                    <div style="margin-left:1rem" id="header1" class="tabActive" onclick="qiehuan1()">{{type1}}</div>
+                    <div style="" class="" id="header2" onclick="qiehuan2()">{{type2}}</div>
+                    <div style="" class="" id="header3" onclick="qiehuan3()">{{type3}}</div>
+                </div>
+            </div>
+            <div class="aui-slide-page-wrap">
+                <!--分页容器-->
+            </div>
+</div>
+</div>
+<div id="qbody">
+            <div id="aui-slide3" class="slideCenter">
+                <div id="lunbo" class="aui-slide-wrap">
+                    <div class="aui-slide-node bg-dark">
+                        <img onclick="lianai()" src="image/xuanshang1.png" />
+                    </div>
+                    <div class="aui-slide-node bg-dark">
+                        <img onclick="jiaopengyou()" src="image/xuanshang2.png" />
+                    </div>
+                    <div class="aui-slide-node bg-dark">
+                        <img onclick="gongzi()" src="images/3.jpg" />
+                    </div>
+                </div>
+                <div class="aui-slide-page-wrap">
+                    <!--分页容器-->
+                </div>
+            </div>
+            <div class="aui-card-list" style="margin-top:1rem">
+                <div class="aui-card-list-header">
+                    悬赏"通缉"令
+                </div>
+                <div class="aui-card-list-header" style="margin-top:-1rem;">
+                    <p style="color:black">为你推荐近期维修悬赏</p>
+                </div>
+                <div class="container">
+                    <ul>
+                        <div>
+                            <div class="aui-row" style="flex-wrap: wrap !important;display:flex;justify-content:center;">
+                                <ul>
+                                    <li v-for="(item,i) in list">
+                                        <div class="aui-col-xs-6">
+                                            <div class="aui-row aui-row-padded" style="width:75%;height:5rem;margin-left:0.7rem" @click="getTongjiling(item.imgId)">
+                                                <img :src="item.src" height="100%" width="100%" />
+                                            </div>
+                                            <div :id="item.imgId" class="aui-row aui-row-padded" style="text-align:center;margin-top:0.6rem">
+                                                {{item.task}}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+                        </div>
+                    </ul>
+
+                </div>
+
+
+            </div>
+</div>
+            <div style="position:fixed;width:4rem;height:2rem;left:6.6rem;bottom:1rem;color:black;border-radius:20px;padding:10px;
+      text-align:center;background-color:white;
+      -moz-box-shadow:2px 2px 5px #333333;
+      -webkit-box-shadow:2px 2px 5px #333333; box-shadow:2px 2px 5px #333333;" onclick="bangbang()">
+                +发悬赏
+            </div>
+
+        </div>
+
+
+</body>
+<script type="text/javascript" src="js/aui-slide.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.hDialog.min.js"></script>
+
+<script>
+
+    var self, currentType;
+    var IP = '49.233.79.42/pyCar/php';
+    var itemNum = 4;
+    localStorage.setItem("currentType", "距离最近");
+
+    //tab导航栏1
+    function firqiehuan1() {
+        $("#firheader1").attr("class", "aui-tab-itemG tapmode aui-active");
+        $("#firheader2").attr("class", "aui-tab-itemG");
+        $("#firheader3").attr("class", "aui-tab-itemG");
+        self.status = '发现';
+        location.reload();
+    }
+
+    function firqiehuan2() {
+        $("#firheader1").attr("class", "aui-tab-itemG");
+        $("#firheader2").attr("class", "aui-tab-itemG tapmode aui-active");
+        $("#firheader3").attr("class", "aui-tab-itemG");
+        self.status = '同校';
+        api.openWin({
+            name: 'tongxiao2',
+            url: 'tongxiao2.html',
+        });
+        $("#firheader1").attr("class", "aui-tab-itemG tapmode aui-active");
+        $("#firheader2").attr("class", "aui-tab-itemG");
+        $("#firheader3").attr("class", "aui-tab-itemG");
+        itemNum = 4;
+        //alert(itemNum);
+    }
+
+    function firqiehuan3() {
+
+        $("#firheader1").attr("class", "aui-tab-itemG");
+        $("#firheader2").attr("class", "aui-tab-itemG");
+        $("#firheader3").attr("class", "aui-tab-itemG tapmode aui-active");
+        api.openWin({
+            name: 'xiaolu2',
+            url: 'xiaolu2.html',
+        });
+        $("#firheader1").attr("class", "aui-tab-itemG tapmode aui-active");
+        $("#firheader2").attr("class", "aui-tab-itemG");
+        $("#firheader3").attr("class", "aui-tab-itemG");
+        itemNum = 4;
+    }
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [],
+            type1: '距离最近',
+            type2: '悬赏最高',
+            type3: '任务最简单',
+            status: '发现',
+        },
+        mounted: function() {
+            self = this;
+            self.status = '发现';
+            status_update();
+        },
+        methods: {
+            getTongjiling: function(imgId) {
+
+                localStorage.setItem("currentimgId", imgId);
+
+                api.openWin({
+                    name: 'tongjiling',
+                    url: 'tongjiling.html',
+                });
+            }
+        }
+    });
+
+    function bangbang() {
+      window.location.href = "fabiao.html";
+
+    }
+
+    //tab2导航栏
+    function qiehuan1() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type1);
+        $("#header1").attr("class", "tabActive");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        status_update();
+
+    }
+
+    function qiehuan2() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type2);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "tabActive");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        status_update();
+    }
+
+    function qiehuan3() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type3);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "tabActive");
+        $("#header4").attr("class", "");
+        status_update();
+    }
+
+    function qiehuan4() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.type4);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "tabActive");
+        status_update();
+    }
+    //更新状态
+    function status_update() {
+        self.list = [];
+        $.ajax({
+            // 请求方式
+            type: "post",
+            // contentType
+
+            // dataType
+            dataType: "json",
+            // url
+            url: 'http://' + IP + '/indexImg.php',
+            // 把JS的对象或数组序列化一个json 字符串
+            // result 为请求的返回结果对象
+            data: JSON.stringify({
+                type: localStorage.getItem("currentType"),
+            }),
+            success: function(result) {
+                console.log(result);
+                for (var k = 0; k < result.length; k++) {
+                    var item = {
+                        imgId: result[k].imgId,
+                        src: 'http://' + IP + result[k].imgUrl,
+                        task: result[k].title
+                    };
+                    self.list.push(item);
+
+                }
+            },
+            error: function(res) {
+                console.log(res);
+                alert('网络发生错误!');
+            }
+        });
+    }
+    //轮播图
+    function currentFun(index) {
+        console.log(index);
+    }
+    var slide3 = new auiSlide({
+        container: document.getElementById("aui-slide3"),
+        //"width":300,
+        "height": 200,
+        "speed": 300,
+        "autoPlay": 5000, //自动播放
+        "loop": true,
+        "pageShow": false,
+        "pageStyle": 'line',
+        'dotPosition': 'center'
+    })
+    console.log(slide3.pageCount());
+    //  var name = "你好," + localStorage.getItem("name");
+    //  alert(name);
+
+    function closeWin() {
+        api.closeWin();
+    }
+
+    function randomSwitchBtn(obj, name, index) {
+        $api.text($api.byId('aui-header'), name);
+        var footer = $api.byId('footer');
+        var footerAct = $api.dom(footer, '.aui-bar-tab-item.aui-active');
+        $api.removeCls(footerAct, 'aui-active');
+        $api.addCls(obj, 'aui-active');
+        api.setFrameGroupIndex({
+            name: 'xiaoyuantong2.htm',
+            index: index,
+            scroll: true
+        });
+
+    }
+
+    function ok() {
+        api.openWin({
+            name: 'geren2_content',
+            url: './geren2_content.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function jin() {
+        api.openWin({
+            name: 'qingjia',
+            url: 'qingjia.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function tui() {
+        api.openWin({
+            name: 'tui',
+            url: 'tuijian.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    //jquery下拉加载更多
+    $(function() {
+        var loadFlag = false;
+        var _stary, _endy;
+        $(".container").on("touchend", function() {
+            $(".container").stop().animate({
+                top: 0
+            }, 80);
+            if ($(this).height() + $(this).scrollTop() >= $(".container ul").height() && !loadFlag) {
+                loadFlag = true;
+                $(".loadmore").addClass("show");
+                $(this).scrollTop(100000000000);
+                itemNum = itemNum + 8;
+                $.ajax({
+                    // 请求方式
+                    type: "post",
+                    // contentType
+                    // dataType
+                    dataType: "json",
+                    // url
+                    url: 'http://' + IP + '/loadMoreImg.php',
+                    // 把JS的对象或数组序列化一个json 字符串
+                    // result 为请求的返回结果对象
+                    data: JSON.stringify({
+                        type: localStorage.getItem("currentType"),
+                        itemNum: itemNum,
+                    }),
+                    success: function(result) {
+
+                        if (result[0]["jieguo"] == '空') {
+                          //  alert('没有更多消息啦');
+
+                        } else {
+                            for (var k = 0; k < result.length; k++) {
+                                var item = {
+                                    imgId: result[k].imgId,
+                                    src: 'http://' + IP + result[k].imgUrl,
+                                    task: result[k].title
+                                };
+                                self.list.push(item);
+
+                            }
+                            //api.refreshHeaderLoadDone();
+                        }
+                        //  dropload.resetload();
+                    },
+                    error: function(res) {
+                        //dropload.resetload();
+                        console.log(res);
+                        alert('网络发生错误!');
+                    }
+                });
+                setTimeout(function() {
+                    loadFlag = false;
+                }, 1000);
+            }
+        });
+        $(".container").on("touchstart", function(e) {
+            var _touch = e.originalEvent.targetTouches[0];
+            _stary = _touch.pageY;
+        });
+        $(".container").on("touchmove", function(e) {
+            var _touch = e.originalEvent.targetTouches[0];
+            _endy = _touch.pageY;
+            if ($(this).height() + $(this).scrollTop() >= $(".container ul").height()) {
+                var current_y = _endy - _stary;
+                $(".container").animate({
+                    top: current_y / 3
+                }, 5);
+            }
+        });
+    });
+
+    function req() {
+        itemNum = itemNum + 8;
+        $.ajax({
+            // 请求方式
+            type: "post",
+            // contentType
+            // dataType
+            dataType: "json",
+            // url
+            url: 'http://' + IP + '/loadMoreImg.php',
+            // 把JS的对象或数组序列化一个json 字符串
+            // result 为请求的返回结果对象
+            data: JSON.stringify({
+                type: localStorage.getItem("currentType"),
+                itemNum: itemNum,
+            }),
+            success: function(result) {
+                if (result[0]["jieguo"] == '空') {
+                  //  alert('没有更多消息啦');
+                } else {
+                    for (var k = 0; k < result.length; k++) {
+                        var item = {
+                            imgId: result[k].imgId,
+                            src: 'http://' + IP + result[k].imgUrl,
+                            task: result[k].title
+                        };
+                        self.list.push(item);
+                        alert('加载成功!');
+                        //  api.refreshHeaderLoadDone();
+                    }
+                }
+            },
+            error: function(res) {
+                console.log(res);
+                alert('网络发生错误!');
+            }
+        });
+
+    }
+
+    function xqiehuan5() {
+        itemNum = 4;
+        localStorage.setItem('currentType', self.xtype5);
+        $("#header1").attr("class", "");
+        $("#header2").attr("class", "");
+        $("#header3").attr("class", "");
+        $("#header4").attr("class", "");
+        $("#header4").attr("class", "tabActive");
+        status_update();
+    }
+
+    function jiaopengyou() {
+      api.openWin({
+          name: 'jiaopengyou',
+          url: './jiaopengyou.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+    function lianai() {
+      api.openWin({
+          name: 'lianai',
+          url: './lianai.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    function gongzi() {
+      api.openWin({
+          name: 'gongzi',
+          url: './gongzi.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+</script>
+
+</html>

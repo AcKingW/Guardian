@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="css/api.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/aui.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <style type="text/css">
+        .cen {
+            postion: relative;
+        }
+
+        #cbtn {
+            width: itdh: 100px;
+            higth: 200px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body style="background-color:white">
+    <div id="app">
+        <header class="aui-bar aui-bar-nav aui-bar-light">
+            <div class="aui-pull-left aui-btn" onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">悬赏</div>
+        </header>
+        <div class="aui-row" style="display:flex" >
+          <textarea placeholder="您需要解决什么问题呢？" v-model="content"
+          required style="background-color:white;width:70%;margin:1rem 0 1rem 1rem;height:11rem"></textarea>
+          <div onclick="showAction()" class="imgBox" style="width:40%;height:5rem;margin:1rem 0.5rem 0rem 1rem;">
+              <img id="imgUp" style="height:100%;width:100%" src="" />
+          </div>
+        </div>
+        <div class="aui-btn aui-btn-info " @click="onSubmit()" style="height:1.9rem;font-size:1rem;width:100%;margin-bottom:1rem"><span class="aui-iconfont aui-icon-edit"></span>发布悬赏令</div>
+        <ul class="aui-list aui-list-in">
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-camera"></i>
+                </div>
+                <div class="aui-list-item-inner" onclick="showAction()">
+                    上传图片(必须上传)
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-info"></i>
+                </div>
+                <div class="aui-list-item-input">
+                    <select v-model="type">
+                        <option value="距离最近" >距离最近</option>
+                        <option value="悬赏最高">悬赏最高</option>
+                        <option value="任务最简单">任务最简单</option>
+
+                    </select>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-star"></i>
+                </div>
+                <div class="aui-list-item-input">
+                  <input id="amount" style="IME-MODE: disabled; WIDTH: 60px; HEIGHT: 15px"
+                  onkeyup="this.value=this.value.replace(/\D/g,'')"
+                  onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                   maxlength="5" size="14" name="amount" type="text"
+                   placeholder="悬赏额(元)" v-model="money" />
+                </div>
+            </li>
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-pencil"></i>
+                </div>
+                <div class="aui-list-item-input">
+                  <input name="amount" type="text" placeholder="悬赏标题" v-model="title" />
+                </div>
+            </li>
+
+        </ul>
+
+
+    </div>
+</body>
+<script src="js/api.js"></script>
+<script>
+    var self;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userName: localStorage.getItem('name'),
+            content: '',
+            imgUrl: '',
+            type: '距离最近',
+            money: '',
+            title: '',
+        },
+        mounted: function() {
+            self = this;
+        },
+        methods: {
+            onSubmit: function() {
+                //              alert(this.content + this.name + this.imgUrl + this.type);
+
+                if (self.content == '' || self.name == '' || self.imgUrl == '' || self.type == '' || self.money == '' || self.userName == '') {
+                    alert('未上传图片或者未填写内容或者未设置悬赏金额等等!');
+                } else {
+                    $.ajax({
+                        // 请求方式
+                        type: "post",
+                        // contentType
+
+                        // dataType
+                        dataType: "json",
+                        // url
+                        url: 'http://49.233.79.42/pyCar/php/fabiao.php',
+                        // 把JS的对象或数组序列化一个json 字符串
+                        data: JSON.stringify({
+                            userName: this.userName,
+                            content: this.content,
+                            type: this.type,
+                            imgUrl: this.imgUrl,
+                            phoneNumber: localStorage.getItem("phone"),
+                            fabiaotime: getNowFormatDate(),
+                            money: this.money,
+                            title:this.title,
+                        }),
+                        // result 为请求的返回结果对象
+                        success: function(result) {
+                          alert('发表成功!');
+                          window.location.href="liaotian1.html";
+                        },
+                        error: function(res) {
+                            alert(res);
+                            console.log(res);
+                            alert('网络发生错误!');
+                        }
+                    });
+                }
+            }
+        },
+    })
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var year = date.getFullYear(); //获取当前年份
+        var mon = date.getMonth() + 1; //获取当前月份
+        var da = date.getDate(); //获取当前日
+        var day = date.getDay(); //获取当前星期几
+        var h = date.getHours(); //获取小时
+        var m = date.getMinutes(); //获取分钟
+        var s = date.getSeconds(); //获取秒
+        var currentdate = year + '年' + mon + '月' + da + '日' + '星期' + day + ' ' + h + ':' + m + ':' + s;
+        return currentdate;
+    }
+
+    apiready = function() {
+        // 界面文字
+        var header = $api.byId('header');
+    };
+    // 上传图片
+    function showAction() {
+        api.actionSheet({
+            title: '上传图片',
+            cancelTitle: '取消',
+            buttons: ['从手机相册选择']
+        }, function(ret, err) {
+            if (ret) {
+                getPicture(ret.buttonIndex);
+            }
+        });
+    }
+
+    function getPicture(sourceType) {
+        if (sourceType == 1) { // 从相机中选择
+            api.getPicture({
+                sourceType: 'library',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'base64',
+                quality: 50,
+                targetWidth: 750,
+                targetHeight: 750
+            }, function(ret, err) {
+                if (ret) {
+                    // $('#imgUp').attr('src', ret.base64Data)
+                    var aa = ret.base64Data;
+                    app.imgUrl = aa;
+                    $('#imgUp').attr('src', app.imgUrl);
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        } else {}
+    }
+
+    function openImg() {
+        var UIAlbumBrowser = api.require('UIAlbumBrowser');
+        UIAlbumBrowser.open({
+            max: 1,
+            type: image,
+            styles: {
+                bg: '#fff',
+                mark: {
+                    icon: '',
+                    position: 'bottom_left',
+                    size: 20
+                },
+                nav: {
+                    bg: 'rgba(0,0,0,0.6)',
+                    titleColor: '#fff',
+                    titleSize: 18,
+                    cancelColor: '#fff',
+                    cancelSize: 16,
+                    finishColor: '#fff',
+                    finishSize: 16
+                }
+            },
+            rotation: true
+        }, function(ret) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            }
+        });
+    }
+
+    function operate() {}
+
+    function cq() {
+        api.historyBack({
+            frameName: 'detail'
+        }, function(ret, err) {
+
+            if (!ret.status) {
+                api.closeWin();
+            }
+        });
+    }
+
+    function watch() {
+        var m = $("#range").val();
+        var text = m + '天';
+        $("#tianshu").html(text);
+
+    }
+    setInterval("watch()", 500);
+</script>
+<link rel="stylesheet" href="Css/bootstrap-datetimepicker.min.css">
+<script src="Js/bootstrap-datetimepicker.js"></script>
+<script src="Js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+</html>

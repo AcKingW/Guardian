@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <script src="js/jquery.js" type="text/javascript"></script>
+            <link rel="stylesheet" href="css/aui.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="zhuce_content/css/main.css">
+          <script src="js/api.js" type="text/javascript"></script>
+          <style type="text/css">
+          #bn{
+            margin:auto auto;
+          }
+          </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+      <header class="aui-bar aui-bar-nav aui-bar-light">
+            <div class="aui-pull-left aui-btn">
+                <span class="aui-iconfont aui-icon-left"onclick="cq()"></span>
+            </div>
+            <div class="aui-title"></div>
+        </header>
+        <form action="http://49.233.79.42/pyCar/php/stuuser.php/"method="post" accept-charset="utf-8" onsubmit="return yz()"/>
+        <div >
+        <ul class="aui-list aui-form-list">
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              姓名
+                          </div>
+                          <div class="aui-list-item-input">
+                          <input type="text"id="name" placeholder="Name"name="name"required="required"/>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              账号
+                          </div>
+                          <div class="aui-list-item-input">
+                              <input type="text"name="xuehao"placeholder="推荐9位数字"required="required">
+                          </div>
+                      </div>
+                  </li>
+                  <input type="hidden"value="注册"/>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                          密码
+                          </div>
+                          <div class="aui-list-item-input">
+                          <input type="password"id="mima" placeholder="password"name="password"required="required"/>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                          请重复输入密码
+                          </div>
+                          <div class="aui-list-item-input">
+                          <input type="password"id="mima2" placeholder="password"name="yanzheng"required="required"/>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              手机号
+                          </div>
+                          <div class="aui-list-item-input">
+                              <input type="text"name="phone"placeholder="Cell Phone Number"required="required">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                          地区
+                          </div>
+                          <div class="aui-list-item-input">
+                          <input type="text"id="name" placeholder="Region"name="school"required="required"/>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                        公司
+                          </div>
+                          <div class="aui-list-item-input">
+                          <input type="text"id="Institute" placeholder="Company"name="major"required="required"/>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              性别
+                          </div>
+                          <div class="aui-list-item-input">
+                             <select name="sex">
+                                  <option  value="男">男</option>
+                                  <option  value="女">女</option>
+                              </select>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-label">
+                              是否同意用户协议
+                          </div>
+                          <div class="aui-list-item-input">
+                             <select name="class">
+                                  <option  value="同意">同意</option>
+                                  <option  value="不同意">不同意</option>
+                              </select>
+                          </div>
+                      </div>
+                  </li>
+              <input type="hidden"name="act"value="注册"/>
+            <div class="ub ub-ver">
+                <div class="ub ub-pe uinn-a6 ulev-4">
+                    <div class="sc-text">
+                        我同意
+                    </div>
+                    <div class="sc-text-active">
+                        用户服务协议
+                    </div>
+                </div>
+                <div class="uinn-at1">
+                    <input class="btn ub ub-ac bc-text-head ub-pc bc-btn" type="submit"id="bn" value="注册"/>
+                </div>
+            </div>
+        </div>
+      </div>
+      </form>
+    </body>
+    <script>
+function yz(){
+  document.charset='utf-8';
+  var a=$("#mima").val();
+  var b=$("#mima2").val();
+  if(a==b)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+function cq()
+{
+  api.historyBack({
+frameName: 'detail'
+}, function(ret, err) {
+if (!ret.status) {
+api.closeWin();
+}
+});
+}
+
+</script>
+</html>

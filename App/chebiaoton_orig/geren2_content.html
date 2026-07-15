@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/aui.css">
+    <link rel="stylesheet" href="css/appcan.icon.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" href="geren2_content/css/main.css">
+
+</head>
+
+<body class="um-vp bc-bg" >
+    <div class="ub ub-ver" id="app">
+        <div class="ub-img1 accban uh-acc1 ub-fh ub ub-ver">
+            <div class="uinn-a1 ub ub-f1">
+                <div onclick="showAction()"class="uwh-acc1 uc-a1 uba b-wh-acc1 us-acc1 accuser mar-ar1">
+                    <img :src="myImgUrl" style="height:110%;width:110%"/>
+                </div>
+                <div class="ub-f1 ub ub-ver">
+                    <div class="ub ">
+                        <div class="umar-ar3 bc-text-head ulev-app1" id="xing">
+
+                        </div>
+                        <p style="color:black" class="aui-text-info" id="name">
+                            网络错误
+                        </p>
+
+                        <div class="sc-bg-alert uc-a1 uinn3 ulev-2 bc-text-head">
+                            <span class="ulev-2"></span>普通用户
+                        </div>
+                    </div>
+                    <div class="ulev-4 bc-text-head umar-t" id="shenfen">
+
+                    </div>
+                    <div class="ulev-4 bc-text-head umar-t">
+                        <pre id="xuehao">
+网络错误
+</pre>
+                        </pre>
+                        非实名认证用户
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <div class="ub c-bla-50 ubb ubt b-wh-acc1 uinn-acc1 ub-ae bc-text-head">
+                <div class="ub ub-ver ub-f1 ulev-4 ub-pc ubr b-gra-acc2 us-acc2 uinn-acc2">
+                    <div class="  tx-c ub-f1">
+                        服务器状态
+                    </div>
+                    <div class="ub-ae ufm1 tx-c" id="qingjiacishu">
+                      正常
+                    </div>
+                </div>
+                <div class="ub ub-ver ulev-4 ub-f1 ub-pc ubr b-gra-acc2 us-acc2 uinn-acc2">
+                    <div class="  tx-c ub-f1">
+                      已获得悬赏
+                    </div>
+                    <div class="ub-ae ufm1 tx-c" id="baoxiucishu">
+                        0
+                    </div>
+                </div>
+
+                <div class="ub ub-ver ub-f1 ub-pc ulev-4 uinn-acc2">
+                    <div class="  tx-c ub-f1">
+                        信用
+                    </div>
+                    <div class="ub-ae  ufm1 tx-c">
+                        100
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-card-list">
+            <div class="aui-card-list-header">
+                <div><i class="aui-iconfont aui-icon-my aui-text-danger"></i><span class="aui-text-danger"> 换头像</span></div>
+                <i class="aui-iconfont aui-icon-more"></i>
+            </div>
+            <div class="aui-card-list-content">
+                <ul class="aui-list aui-media-list">
+
+                    <li class="aui-list-item aui-list-item-middle" >
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width: 3rem;">
+                                <img src="image/demo1.png" class="aui-img-round">
+                            </div>
+                            <div class="aui-list-item-inner aui-list-item-arrow" onclick="showAction()">
+                                我要换头像
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-card-list-footer aui-text-center">
+              行车安全卫士
+            </div>
+
+        </div>
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-header"> 其他</li>
+
+                <li class="aui-list-item" onclick="set()">
+                    <div class="aui-list-item-label-icon">
+                        <i class="iconfont icon-shezhi"></i>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        我的设置
+                    </div>
+                    <li class="aui-list-item" onclick="kaifa()">
+                        <div class="aui-list-item-label-icon">
+                            <i class="aui-iconfont aui-icon-gear"></i>
+                        </div>
+                        <div class="aui-list-item-inner">
+                            开发者设置
+                        </div>
+                    </li>
+                    <li class="aui-list-item" onclick="zhichi()">
+                        <div class="aui-list-item-label-icon">
+                            <i class="aui-iconfont aui-icon-gear"></i>
+                        </div>
+                        <div class="aui-list-item-inner">
+                            技术支持
+                        </div>
+                    </li>
+                </li>
+        </ul>
+    </div>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+</body>
+<script>
+    $("#name").html(localStorage.getItem("name"));
+    $("#xuehao").html(localStorage.getItem("xuehao"));
+    var IP = 'http://175.24.3.72/bangbang';
+    var app = new Vue({
+        el: '#app',
+        data: {
+            myImgUrl: localStorage.getItem('myImgUrl'),
+        },
+        mounted: function(){
+
+        },
+        methods:{
+          onSubmit: function() {
+              //              alert(this.content + this.name + this.imgUrl + this.type);
+              if (this.myImgUrl == '' ) {
+                  alert('未上传图片');
+              } else {
+                  $.ajax({
+                      // 请求方式
+                      type: "post",
+                      // contentType
+
+                      // dataType
+                      dataType: "json",
+                      // url
+                      url: 'http://175.24.3.72/bangbang/geren.php',
+                      // 把JS的对象或数组序列化一个json 字符串
+                      data: JSON.stringify({
+                          xuehao: localStorage.getItem("xuehao"),
+                          myImgUrl: this.myImgUrl,
+                      }),
+                      // result 为请求的返回结果对象
+                      success: function(result) {
+                        alert('更改成功!');
+                        localStorage.setItem('myImgUrl',IP+result.substr(1));
+                      },
+                      error: function(res) {
+                          alert(res);
+                          console.log(res);
+                          alert('网络发生错误!');
+                      }
+                  });
+              }
+        }
+      }
+    })
+function zhichi()
+{
+  alert("如软件出现问题欢迎联系王慧强，qq：847762073，邮箱:wanghuiqi.ang@163.com")
+}
+
+    function kaifa() {
+        api.prompt({
+            buttons: ['进入', '取消'],
+            msg: "请输入开发内测密码"
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            var text = ret.text;
+            if (text == "lcu8477") {
+                api.openWin({
+                    name: 'kaifazheshezhi',
+                    url: 'kaifazheshezhi.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
+        });
+    }
+
+    function xiadan() {
+        api.openWin({
+            name: 'xiadan',
+            url: 'xiadan.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+    function tui() {
+        api.openWin({
+            name: 'tui',
+            url: 'tuijian.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    function jieguoout() {
+        api.openWin({
+            name: 'jieguoout',
+            url: 'jieguoout.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    function qingjia() {
+        api.openWin({
+            name: 'qingjia',
+            url: 'qingjia.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    function guan() {
+        api.openWin({
+            name: 'guanzhu',
+            url: 'guanzhu.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+    function set() {
+        api.openWin({
+            name: 'shezhi',
+            url: 'shezhi.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+    function zuzhi() {
+        api.openWin({
+            name: 'zuzhi',
+            url: 'zuzhi.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+    function liao2() {
+        api.openWin({
+            name: 'liaotian1',
+            url: 'liaotian1.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function cc() {
+        api.openWin({
+            name: 'liaotian1',
+            url: 'liaotian1.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+
+
+    function PerRefresh() {
+        document.getElementById("xing").innerHTML = localStorage.getItem("mymyname");
+        document.getElementById("shenfen").innerHTML = localStorage.getItem("myname");
+    }
+    //上传图片
+
+    function showAction() {
+        api.actionSheet({
+            title: '上传图片',
+            cancelTitle: '取消',
+            buttons: ['从手机相册选择']
+        }, function(ret, err) {
+            if (ret) {
+                getPicture(ret.buttonIndex);
+            }
+        });
+    }
+
+    function getPicture(sourceType) {
+        if (sourceType == 1) { // 从相机中选择
+            api.getPicture({
+                sourceType: 'library',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'base64',
+                quality: 50,
+                targetWidth: 750,
+                targetHeight: 750
+            }, function(ret, err) {
+                if (ret) {
+                    // $('#imgUp').attr('src', ret.base64Data)
+                    var aa = ret.base64Data;
+                    app.myImgUrl = aa;
+                    $('#imgUp').attr('src', app.imgUrl);
+                    if (app.myImgUrl == '' ) {
+                        alert('上传头像失败');
+                    } else {
+                        $.ajax({
+                            // 请求方式
+                            type: "post",
+                            // contentType
+
+                            // dataType
+                            dataType: "json",
+                            // url
+                            url: 'http://175.24.3.72/bangbang/geren.php',
+                            // 把JS的对象或数组序列化一个json 字符串
+                            data: JSON.stringify({
+                                xuehao: localStorage.getItem("xuehao"),
+                                myImgUrl: app.myImgUrl,
+                            }),
+                            // result 为请求的返回结果对象
+                            success: function(result) {
+                              alert('你的头像焕然一新啦');
+                              localStorage.setItem('myImgUrl',IP+result.substr(1));
+                            },
+                            error: function(res) {
+                                alert(res);
+                                console.log(res);
+                                alert('网络发生错误!');
+                            }
+                        });
+                    }
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        } else {}
+    }
+
+    function openImg() {
+        var UIAlbumBrowser = api.require('UIAlbumBrowser');
+        UIAlbumBrowser.open({
+            max: 1,
+            type: image,
+            styles: {
+                bg: '#fff',
+                mark: {
+                    icon: '',
+                    position: 'bottom_left',
+                    size: 20
+                },
+                nav: {
+                    bg: 'rgba(0,0,0,0.6)',
+                    titleColor: '#fff',
+                    titleSize: 18,
+                    cancelColor: '#fff',
+                    cancelSize: 16,
+                    finishColor: '#fff',
+                    finishSize: 16
+                }
+            },
+            rotation: true
+        }, function(ret) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            }
+        });
+    }
+
+</script>
+
+</html>

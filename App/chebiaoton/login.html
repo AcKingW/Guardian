@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,height=980,initial-scale=1.0"/>
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+      <link rel="stylesheet" href="css/ui-box.css">
+      <link rel="stylesheet" href="css/ui-base.css">
+      <link rel="stylesheet" href="css/ui-color.css">
+      <link rel="stylesheet" href="css/appcan.icon.css">
+      <link rel="stylesheet" href="css/appcan.control.css">
+      <link rel="stylesheet" href="login_content/css/main.css">
+         <script src="js/jquery.js"></script>
+          <script type="text/javascript"src="js/api.js"></script>
+
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+       <div class="ub logoBg2 ub-img1 ub-fv">
+           <div class="ub ub-ver uinn-a3 ub-f1">
+               <div class="ub ub-ver ub-ac uinn-pLt1">
+
+               </div>
+               <div class="ub ub-ver ub-pe ub-f1 uinn-pLb1">
+                   <div class="uinn">
+                       <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="qq">
+                           登录
+                       </div>
+                   </div>
+                   <div class="uinn">
+                       <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1"id="zhuce" >
+                           注册账号
+                       </div>
+                   </div>
+                   <div class="uinn">
+                       <div class="btn ub ub-ac bc-text-head ub-pc sc-btn uc-a1" id="denglu">
+                          开发者
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </body>
+
+    <script type="text/javascript">
+        apiready = function(){
+            api.parseTapmode();
+            var header = $api.byId('aui-header');
+            $api.fixStatusBar(header);
+            var headerPos = $api.offset(header);
+            var body_h = $api.offset($api.dom('body')).h;
+            api.openFrame({
+                name: 'login_content',
+                url: 'login_content.html',
+                bounces: true,
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: 'auto',
+
+                }
+
+            })
+
+
+        };
+        function closeWin(){
+            api.closeWin({
+            });
+        }
+    </script>
+    </html>

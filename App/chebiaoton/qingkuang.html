@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>请假情况</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+  	<script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/aui.css">
+	<script src="js/bootstrap-table-expandable.js"></script>
+	<link rel="stylesheet" href="css/bootstrap-table-expandable.css">
+      <script src="js/bootstrap.js"></script>
+      	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <style type="text/css">
+    .cen{
+      text-align:center;
+    }
+    .bd{
+       overflow-x: hidden;
+       overflow-y: auto;
+     }
+    .column1{
+    }
+    .body{
+      background-color:white;
+    }
+    .mx{
+      width:100%;
+      background-size:100% 100%;
+      overflow-x:auto;
+      overflow-y:auto;
+      background-color:white;
+    }
+    .thead{
+      font-size:16px;
+    }
+    .common{
+      font-size:14px;
+    }
+    </style>
+</head>
+<body>
+        <header class="aui-bar aui-bar-nav">申请情况</header>
+    <header class="aui-bar aui-bar-nav aui-bar-light">
+
+            <div class="aui-title" style="left:2rem; right: 0.5rem;">
+                <div class="aui-searchbar">
+                    <div class="aui-searchbar-input aui-border-radius">
+                        <i class="aui-iconfont aui-icon-search"></i>
+                        <input type="search" placeholder="请输入搜索内容" id="search-input">
+                        <div class="aui-searchbar-clear-btn">
+                            <i class="aui-iconfont aui-icon-close"></i>
+                        </div>
+                    </div>
+                    <div class="aui-searchbar-btn" tapmode>取消</div>
+                </div>
+            </div>
+        </header>
+        <div class="bd">
+<h1 align="center">
+    <table class="table table-hover table-expandable"id="otb">
+      <caption></caption>
+      <thead>
+      <tr class="thead">
+        <td>序号</td>
+        <td>姓名</td>
+        <td>时间</td>
+        <td>是否准假</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody id="tb"class="common">
+	<form action="ceshi.php"method="POST"id="form2">
+	<input type="HIDDEN"value="true"name="cmm"/>
+	</form>
+    </tbody>
+    </table>
+    <div >
+  </div>
+
+	<div class="cen"><a href="qingjia.html"><input id="cbtn"type="button"class="btn btn-primary btn-lg"value="我要请假"/></a></div>
+	<div class="cen"><a href="houtai.html"><input id="cbtn2"type="button"class="btn btn-primary btn-lg" value="后台"/></a></div>
+  <div style="height:70px;"></div>
+</div>
+</body>
+<script>
+apiready = function(){}
+var id=1;
+$.ajax({
+type:'post',
+url:'http://49.233.79.42/pyCar/php/chuli.php',
+data:'act="select"',
+async:false,
+complete:function(){
+},
+success:function(data){
+  var x=document.getElementById("tb");
+  x.innerHTML=data;
+  $("#tb td").attr("class","common");
+},
+error:function(){
+  alert("网络错误");
+}
+});
+  function removeq(id){
+    var out=document.getElementById("tb");
+    var namedid=document.getElementById(id);
+    out.removeChild(namedid);
+	$.ajax({
+	  type : 'post',
+	  url:'http://49.233.79.42/pyCar/php/shanchu.php',
+	  data:"id="+id,
+	  async:false,
+	  complete:function()
+	  {
+
+		  alert("ajax请求发送完毕！");
+	  },
+	   success:function(data){
+		  alert("数据返回完毕！");
+		  alert(data);
+	  },
+	  error:function(){
+		  alert("数据库异常");
+	  }
+	});
+  }
+</script>
+</html>

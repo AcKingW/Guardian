@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>请假</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/aui.css">
+    <style type="text/css">
+    .cen{
+      postion:relative;
+    }
+    #cbtn{
+width: itdh:100px;
+higth:200px;
+position:absolute;
+top:0;
+right:0;
+bottom:0;
+left:0;
+margin:auto;
+}
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn" onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">请假</div>
+        </header>
+<form action="http://49.233.79.42/pyCar/php/chuli.php"method="post"id="form1"onsubmit="operate();">
+  <ul class="aui-list aui-form-list">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        姓名
+                    </div>
+                    <div class="aui-list-item-input">
+                    <input type="text"id="name" placeholder="Name"name="name"required="required"/>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        学号
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text"name="xuehao"placeholder="Academic Number"required="required"/>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        手机号
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text"name="phone"placeholder="Cell Phone Number"required="required"/>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        学院
+                    </div>
+                    <div class="aui-list-item-input">
+                    <input type="text"id="xueyuan" placeholder="Institute"name="xueyuan"required="required"/>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        班级
+                    </div>
+                    <div class="aui-list-item-input">
+                       <select name="class">
+                            <option  value="1">1班</option>
+                            <option  value="2">2班</option>
+							              <option  value="3">3班</option>
+							              <option  value="4">4班</option>
+							              <option  value="5">5班</option>
+						              	<option  value="6">6班</option>
+						              	<option  value="7">7班</option>
+							              <option  value="8">8班</option>
+						              	<option  value="9">9班</option>
+						              	<option  value="10">10班</option>
+							              <option  value="11">11班</option>
+							              <option  value="12">12班</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        请假原因
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select name="fangxiang">
+                            <option  value="病假">病假</option>
+                            <option  value="事假">事假</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        时间
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" id="time"name="time"placeholder="例：7.22-8.1"required="required">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        请假天数
+                    </div>
+                    <div class="aui-list-item-input"onclick="watch()">
+                        <div class="aui-range">
+                            <input type="range" name="chengdu"class="aui-range" value="0" max="30" min="0" step="1" id="range" required="required"/>
+                            <p id="tianshu">0天</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+			     <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        家长是否知情
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select name="zhiqing">
+                            <option  value="不知情">不知情</option>
+                            <option  value="已知情">已知情</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        事由
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="textarea"name="reason"required="required"/>
+                    </div>
+                </div>
+            </li>
+			<input type="HIDDEN" value="1"name="act"/>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                   <input type="submit"value="请假"class="aui-btn aui-btn-info aui-margin-r-5"/>
+                    <div class="aui-btn aui-btn-danger aui-margin-l-5">取消</div>
+                </div>
+            </li>
+        </ul>
+      <div height="70px;">
+</div>
+</form>
+</body>
+<script>
+function operate()
+{
+}
+function cq()
+{
+  api.historyBack({
+frameName: 'detail'
+}, function(ret, err) {
+
+if (!ret.status) {
+api.closeWin();
+}
+});
+}
+function watch(){
+  var m=$("#range").val();
+  var text=m+'天';
+  $("#tianshu").html(text);
+
+}
+setInterval("watch()",500);
+</script>
+<link rel="stylesheet" href="Css/bootstrap-datetimepicker.min.css">
+<script src="Js/bootstrap-datetimepicker.js"></script>
+<script src="Js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+</html>

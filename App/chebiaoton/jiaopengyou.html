@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/aui.css">
+        <style type="text/css">
+        .title{
+          font-size:1rem;
+        }
+        .stitle{
+          color: grey;
+          font-size: 0.8rem;
+        }
+        .stitle .blue{
+          display: inline-block;
+          color: blue;
+        }
+        .body{
+          margin: 1.5rem;
+        }
+        #header{
+          margin-bottom:  1.5rem;
+        }
+        #header h2{
+          font-weight: normal;
+        }
+        #content{
+          font-size: 0.8rem;
+          color: black;
+          font-weight: lighter;
+        }
+        </style>
+
+    </head>
+
+    <body class="um-vp " ontouchstart>
+      <header class="aui-bar aui-bar-nav">
+            <div class="aui-pull-left aui-btn"onclick="cq()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title"></div>
+        </header>
+        <div class="body">
+          <div id="header">
+            <h2 >动手交朋友</h2>
+            <div class="stitle">
+              <span>帮帮宣传部</span> <span class="blue">帮帮小驿站</span>
+            </div>
+          </div>
+          <div id="content">
+            <img style="margin-bottom:1rem;"src="images/3.jpg"/>
+            <span>抱着试试看的心理，她打开这个还没有呢尝试过的APP，发布了一个悬赏，备注留言上写着“明天就要交作业了，电脑临时出现问题，希望有人可以帮忙。”然后留下的位置。让她没有想到的是，很快就有人揭榜，询问了电脑的情况后，大概五分钟，一个女生敲门……可能她们以前曾经在楼道里擦肩而过，后来的某天，她们还聊起过这个，成为了她们友谊的开始。</span>
+          </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+    function cq()
+    {
+      api.historyBack({
+  frameName: 'detail'
+  }, function(ret, err) {
+  if (!ret.status) {
+    api.closeWin();
+  }
+  });
+    }
+
+    </script>
+</html>

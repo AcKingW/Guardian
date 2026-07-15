@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+          <link rel="stylesheet" href="css/aui.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+           <script src="js/jquery.js"></script>
+        <link rel="stylesheet" href="loginnew/css/main.css">
+    </head>
+    <body class="um-vp bc-bg"onload="initJPush()" ontouchstart>
+        <div class="ub logoBg2 ub-img1 ub-fv">
+            <div class="ub ub-ver uinn-a3 ub-f1">
+              <div class="ub ub-ver ub-ac uinn-pLt1">
+                  <div class="logo3 ub-img uwh-pL1"></div>
+              </div>
+
+                <div class="ub ub-ver ub-pe ub-f1 uinn-pLb1">
+                  <form method="post"id="form"/>
+                <ul class="aui-list aui-form-list">
+                            <li class="aui-list-item">
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-label-icon">
+                                        <i class="aui-iconfont aui-icon-mobile"></i>
+                                    </div>
+                                    <div class="aui-list-item-input">
+                                        <input type="text" placeholder="请输入您的账号"id="xuehao"name="xuehao"required="required">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="aui-list-item">
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-label-icon">
+                                        <i class="aui-iconfont aui-icon-lock"></i>
+                                    </div>
+                                    <div class="aui-list-item-input">
+                                        <input type="password" placeholder="请输入您的密码"id="mima"value=""name="mima"required="required">
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+
+
+                        <input type="hidden"name="act"value="登录"/>
+                            </form>
+                    <div class="uinn">
+                      <div class="btn ub ub-ac bc-text-head ub-pc sc-btn uc-a1" style="border-radius:0.5rem" onclick="loginm()">
+                          登录
+                      </div>
+
+                    </div>
+                    <div class="uinn">
+                        <div class="btn ub ub-ac bc-text-head ub-pc sc-btn uc-a1" style="border-radius:0.5rem" onclick="zhu()">
+                            注册帐号
+                        </div>
+                    </div>
+                    <div class="uinn">
+                        <div class="btn ub ub-ac bc-text-head ub-pc sc-btn uc-a1" style="border-radius:0.5rem" onclick="banben()" >
+                          版本
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+      var IP = 'http://49.233.79.42/pyCar/php';
+    $("#xuehao").val(localStorage.getItem("jizhuxuehao"));
+    $("#mima").val(localStorage.getItem("jizhumima"));
+    var jpush = null;
+    apiready = function(){
+        jpush = api.require('ajpush');
+         api.addEventListener({name:'appintent'}, function(ret,err) {
+      //	alert('通知被点击，收到数据：\n' + JSON.stringify(ret));//监听通知被点击后收到的数据
+          if(ret && ret.appParam.ajpush){
+              var ajpush = ret.appParam.ajpush;
+              //alert(ajpush);
+              var id = ajpush.id;
+              //alert(id);
+              var title = ajpush.title;
+              var content = ajpush.content;
+              var extra = ajpush.extra;
+              //alert(extra.aaaaa);
+          }
+         })
+       api.addEventListener({name:'pause'}, function(ret,err) {
+          onPause();//监听应用进入后台，通知jpush暂停事件
+         })
+
+         api.addEventListener({name:'resume'}, function(ret,err) {
+          onResume();//监听应用恢复到前台，通知jpush恢复事件
+         })
+      }
+function initJPush(){
+  jpush.init(function(ret, err){
+    if(ret && ret.status){
+      alert('操作成功!');
+    }else{
+      alert('操作失败!');
+    }
+  });
+}
+function loginm(){
+  if($("#xuehao").val()!=''&&$("#mima").val()!='')
+  {
+  var m=$("#form").serializeArray();
+    $.ajax({
+      type:'post',
+      url:'http://49.233.79.42/pyCar/php/jsonchuli.php',
+      contentType:'application/json',
+      dataType:'json',
+      data:JSON.stringify(m),
+      async:false,
+      complete:function()
+      {
+      },
+      success:function(data)
+      {
+
+        localStorage.setItem("name",data["user"][0]["name"]);
+          localStorage.setItem("xuehao",data["user"][0]["xuehao"]);
+          localStorage.setItem("phone",data["user"][0]["phone"]);
+          localStorage.setItem("xueyuan",data["user"][0]["xueyuan"]);
+          localStorage.setItem("xiaoqu",data["user"][0]["xiaoqu"]);
+          localStorage.setItem("school",data["user"][0]["school"]);
+          localStorage.setItem("class",data["user"][0]["class"]);
+            localStorage.setItem("sex",data["user"][0]["sex"]);
+            localStorage.setItem("jizhuxuehao",$("#xuehao").val());
+            localStorage.setItem("jizhumima",$("#mima").val());
+            localStorage.setItem("xuanzhong","ok");
+          if(data["user"][0]["myImgUrl"] == null){
+          localStorage.setItem("myImgUrl",'image/demo5.jpg');
+          }
+          else{
+            localStorage.setItem("myImgUrl",IP+data["user"][0]["myImgUrl"].substr(1));
+
+          }
+        //  alert(localStorage.getItem("sex"));
+          api.openWin({
+              name: 'xiaoyuantong2',
+              url: 'xiaoyuantong2.html',
+              pageParam: {
+                  name: 'test'
+              }
+            });
+      },
+      error:function()
+      {
+        alert("请检查你输入的账号或者密码，如果账号密码正确，请检查你的网络");
+      },
+    })
+  }
+  else
+  {
+      alert("账号或者密码不能为空");
+  }
+}
+function banben(){
+  alert('目前已是最新版本,行车安全卫士为您服务！')
+}
+function ok(){
+  api.openWin({
+      name: 'zhanghao',
+      url: 'zhanghao.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+
+}
+function zhu(){
+  api.openWin({
+      name: 'zhuce_content',
+      url:'zhuce_content.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+}
+function ti(){
+  api.openWin({
+      name: 'kaifazhe',
+      url:'kaifazhe.html',
+      pageParam: {
+          name: 'test'
+      }
+  });
+}
+
+
+    </script>
+</html>
